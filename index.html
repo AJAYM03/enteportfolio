@@ -467,18 +467,6 @@
     padding:4px 0 4px 22px;
     margin:30px 0;
   }
-  .think-list{
-    display:grid;
-    grid-template-columns:repeat(2, 1fr);
-    gap:10px 24px;
-    list-style:none;
-    padding:0;
-    margin:26px 0 0;
-    font-family:'IBM Plex Mono', monospace;
-    font-size:13.5px;
-    color:var(--ink-soft);
-  }
-  .think-list li::before{content:"— "; color:var(--margin);}
   .friction-log{
     margin:30px 0 0;
     padding:18px 20px;
@@ -519,18 +507,82 @@
     letter-spacing:0.06em;
   }
   @media (max-width:560px){
-    .think-list{grid-template-columns:1fr;}
     .friction-log li{grid-template-columns:1fr; gap:2px;}
   }
 
-  /* PROJECT ENTRIES ("things that bothered me enough") */
+  /* PROJECT ENTRIES ("things that bothered me enough") — sticky notes pinned to the page */
+  .entries{
+    display:grid;
+    grid-template-columns:repeat(2, minmax(0, 1fr));
+    gap:26px;
+    align-items:stretch;
+  }
+  .entries .entry{
+    height:100%;
+  }
   .entry{
-    background:var(--card);
-    border:1px solid var(--paper-line);
-    border-radius:6px;
+    --tilt: -1.4deg;
+    --note: #F3E7BE;
+    --note-tape: rgba(231,173,78,0.55);
+    --note-ink: #33291B;
+    --note-ink-soft: #4C4230;
+    --note-ink-faint: rgba(51,41,27,0.55);
+    --note-accent: #8C3A24;
+    --note-chip: #3B5C50;
+    background:var(--note);
+    color:var(--note-ink);
+    border-radius:2px;
     padding:26px 26px 24px;
-    margin-bottom:22px;
     position:relative;
+    transform:rotate(var(--tilt));
+    box-shadow:
+      0 2px 0 rgba(255,255,255,0.45) inset,
+      0 16px 28px -14px rgba(0,0,0,0.5),
+      0 3px 6px rgba(0,0,0,0.18);
+    transition:transform .2s ease, box-shadow .2s ease;
+  }
+  .entries .entry:nth-child(2){
+    --tilt: 1.1deg;
+    --note: #DCEBE3;
+    --note-tape: rgba(123,194,180,0.55);
+    --note-accent: #2E5E52;
+    --note-chip: #2E5E52;
+  }
+  .entries .entry:nth-child(3){
+    --tilt: -0.7deg;
+    --note: #F3DCCF;
+    --note-tape: rgba(210,96,79,0.5);
+    --note-accent: #9A3C24;
+    --note-chip: #7A4A2E;
+  }
+  .entries .entry:nth-child(4){
+    --tilt: 0.9deg;
+    --note: #E7E1CF;
+    --note-tape: rgba(166,173,140,0.55);
+    --note-accent: #55622F;
+    --note-chip: #4B5A3E;
+  }
+  .entry::before{
+    /* a strip of tape pinning the note down */
+    content:"";
+    position:absolute;
+    top:-13px;
+    left:30px;
+    width:60px;
+    height:22px;
+    background:var(--note-tape);
+    border-left:1px solid rgba(0,0,0,0.08);
+    border-right:1px solid rgba(0,0,0,0.08);
+    box-shadow:0 2px 4px rgba(0,0,0,0.22);
+    transform:rotate(-6deg);
+    z-index:2;
+  }
+  .entry:hover{
+    transform:rotate(0deg) translateY(-5px);
+    box-shadow:
+      0 2px 0 rgba(255,255,255,0.5) inset,
+      0 22px 36px -14px rgba(0,0,0,0.55),
+      0 4px 8px rgba(0,0,0,0.22);
   }
   .entry::after{
     content:attr(data-note);
@@ -568,73 +620,24 @@
     font-size:1.25rem;
     margin:0;
     font-weight:600;
+    color:var(--note-ink);
   }
   .entry-tag{
     font-family:'IBM Plex Mono', monospace;
     font-size:11.5px;
-    color:var(--ink-faint);
+    color:var(--note-ink-faint);
     white-space:nowrap;
   }
   .entry-observation{
     font-family:'Caveat', cursive;
-    font-size:1.2rem;
-    color:var(--margin);
+    font-size:1.25rem;
+    color:var(--note-accent);
     margin:0 0 12px;
     transform:rotate(-0.4deg);
   }
-  .origin-toggle{
-    font-family:'IBM Plex Mono', monospace;
-    font-size:11.5px;
-    color:var(--amber);
-    background:none;
-    border:0;
-    border-bottom:1px dotted var(--amber);
-    padding:0;
-    margin:0 0 12px;
-  }
-  .origin-toggle:hover{border-bottom-style:solid;}
-  .origin-note{
-    display:none;
-    margin:0 0 14px;
-    padding:10px 12px;
-    color:var(--ink-soft);
-    font-size:14.5px;
-    border-left:2px solid var(--amber);
-    background:rgba(231,173,78,0.06);
-  }
-  .entry.origin-open .origin-note{display:block;}
-  .field-note-grid{
-    display:grid;
-    grid-template-columns:repeat(3, 1fr);
-    gap:10px;
-    margin:0 0 16px;
-  }
-  .field-note-grid div{
-    border:1px dotted var(--paper-line);
-    border-radius:5px;
-    padding:10px 12px;
-    background:rgba(0,0,0,0.1);
-  }
-  .field-note-grid dt{
-    margin:0 0 5px;
-    font-family:'IBM Plex Mono', monospace;
-    font-size:10.5px;
-    text-transform:uppercase;
-    letter-spacing:0.07em;
-    color:var(--sage);
-  }
-  .field-note-grid dd{
-    margin:0;
-    color:var(--ink-soft);
-    font-size:13.5px;
-    line-height:1.45;
-  }
-  @media (max-width:720px){
-    .field-note-grid{grid-template-columns:1fr;}
-  }
   .entry p.core{
     margin:0 0 14px;
-    color:var(--ink-soft);
+    color:var(--note-ink-soft);
   }
   .entry .stack{
     display:flex;
@@ -650,12 +653,11 @@
     padding:3px 10px;
     opacity:0.85;
   }
-  .entry .findings{
-    margin-top:14px;
-    padding-top:14px;
-    border-top:1px dotted var(--paper-line);
-    font-size:14.5px;
-    color:var(--ink-soft);
+  .entry .chip{
+    color:var(--note-chip);
+    border-color:var(--note-chip);
+    opacity:0.9;
+    background:rgba(255,255,255,0.25);
   }
   .repo-link{
     display:inline-block;
@@ -667,6 +669,10 @@
     border-bottom:1px dotted var(--pen);
   }
   .repo-link:hover{border-bottom-style:solid;}
+  .entry .repo-link{
+    color:var(--note-accent);
+    border-bottom-color:var(--note-accent);
+  }
 
   .more-repos{
     margin-top:8px;
@@ -1170,15 +1176,8 @@
     <span class="eyebrow">01 — how i think</span>
     <h2 class="section-title reveal">I don't usually start with "what should I build?"</h2>
     <div class="think-body">
-      <p>Most of what I work on starts from something personal — a problem I've lived through, something I've watched other people struggle with, or a workflow that quietly wastes everyone's time. I care less about how technically impressive something is, and more about whether it makes one specific part of someone's day less frustrating.</p>
+      <p>Most of what I work on starts from something personal — a problem I've lived through, or a workflow that quietly wastes everyone's time. I care less about how technically impressive something is, and more about whether it makes one specific part of someone's day less frustrating. I learn by breaking things and writing down what I notice, mostly on LinkedIn.</p>
       <div class="quote-block">The first draft is usually just a question in the margin: why is this painful, and can software make it slightly less annoying?</div>
-      <p>I learn by breaking things, rebuilding them, and writing down what I notice — mostly on LinkedIn, where the notes are part reflection, part build log, and part reminder that I do not have everything figured out.</p>
-      <ul class="think-list">
-        <li>Builder first, storyteller second</li>
-        <li>Problems over portfolios</li>
-        <li>Prototyping over perfecting</li>
-        <li>Human systems over hype cycles</li>
-      </ul>
       <div class="friction-log reveal">
         <ul>
           <li><b>campus</b><span>Useful information exists, but it is usually scattered across portals, PDFs, emails, and screenshots.</span></li>
@@ -1203,14 +1202,7 @@
           <span class="entry-tag">chrome extension · personal project</span>
         </div>
         <p class="entry-observation">"Students shouldn't have to make attendance decisions blindly."</p>
-        <button class="origin-toggle" type="button" aria-expanded="false">where this came from</button>
-        <p class="origin-note">Attendance portals showed numbers, but not decisions. Haajar started from that small anxiety of trying to understand what one missed class actually meant.</p>
-        <dl class="field-note-grid">
-          <div><dt>problem observed</dt><dd>Attendance data existed, but students still had to calculate risk in their heads.</dd></div>
-          <div><dt>first rough idea</dt><dd>A tiny local tool that turns portal numbers into a decision students can actually use.</dd></div>
-          <div><dt>what stayed important</dt><dd>Privacy. No backend, no collection, no extra place for academic data to leak.</dd></div>
-        </dl>
-        <p class="core">A privacy-first Chrome extension that calculates how many classes a student can safely miss by reading attendance data from the university portal and mapping it against their timetable. I built it with zero backend infrastructure, no external API calls, and no data collection — because attendance planning should not require handing personal academic data to another server.</p>
+        <p class="core">Attendance portals showed a number, not a decision — so I built a privacy-first Chrome extension that reads attendance data straight from the university portal, maps it against the timetable, and tells students how many classes they can safely miss. Zero backend, zero external calls, zero data collection. It also syncs holidays and calendar events, supports batch timetable imports, and handles the messy edge cases: electives, inconsistent subject codes, internal exam windows.</p>
         <div class="stack">
           <span class="chip">JavaScript</span>
           <span class="chip">HTML</span>
@@ -1218,7 +1210,6 @@
           <span class="chip">Chrome Extensions API</span>
           <span class="chip">CSV imports</span>
         </div>
-        <p class="findings">It syncs attendance records, holidays, and academic calendar events from the portal, supports reusable batch timetable imports, lets students customize electives and edge cases, and translates inconsistent subject codes before the numbers are shown.</p>
         <a class="repo-link" href="https://github.com/AJAYM03/Haajar" target="_blank" rel="noopener">view repo — Haajar ↗</a>
       </article>
 
@@ -1228,14 +1219,7 @@
           <span class="entry-tag">Sep 2025 — Apr 2026 · vehicular fog computing</span>
         </div>
         <p class="entry-observation">"Why do scheduling algorithms break down under realistic vehicular workloads?"</p>
-        <button class="origin-toggle" type="button" aria-expanded="false">where this came from</button>
-        <p class="origin-note">This came from being suspicious of neat simulations. Real vehicles move, workloads shift, and schedulers should be tested against that mess.</p>
-        <dl class="field-note-grid">
-          <div><dt>problem observed</dt><dd>Many schedulers look good until the environment starts moving like the real world does.</dd></div>
-          <div><dt>first rough idea</dt><dd>Combine mobility simulation with fog scheduling and watch what breaks under pressure.</dd></div>
-          <div><dt>what stayed important</dt><dd>Honest comparison. The algorithm should be tested against enough baselines to earn its claims.</dd></div>
-        </dl>
-        <p class="core">A hybrid quantum-inspired genetic algorithm for task allocation across edge, fog, and cloud infrastructures. I built a SUMO–EdgeSimPy co-simulation setup to test mobility-aware vehicular IoT workloads instead of relying on neat static assumptions, then benchmarked the scheduler against multiple approaches.</p>
+        <p class="core">Most scheduling papers test against neat, static assumptions — real vehicles don't move that way. I built a hybrid quantum-inspired genetic algorithm for task allocation across edge, fog, and cloud, then paired it with a SUMO–EdgeSimPy co-simulation so it had to handle actual mobility-driven workload shifts. Benchmarked against 10 baseline schedulers: up to 66% fewer SLA violations under dynamic load, and up to 93% lower energy use in static scenarios.</p>
         <div class="stack">
           <span class="chip">Python</span>
           <span class="chip">EdgeSimPy</span>
@@ -1243,7 +1227,6 @@
           <span class="chip">Streamlit</span>
           <span class="chip">Quantum-inspired optimisation</span>
         </div>
-        <p class="findings">Benchmarked against 10 scheduling algorithms, reducing SLA violations by up to 66% under dynamic workloads and reaching up to 93% lower energy consumption in static scenarios.</p>
         <a class="repo-link" href="https://github.com/AJAYM03/Fog-Orchestrator" target="_blank" rel="noopener">view repo — Fog-Orchestrator ↗</a>
       </article>
 
@@ -1253,14 +1236,7 @@
           <span class="entry-tag">May 2026 — present · real-time systems</span>
         </div>
         <p class="entry-observation">"Hospital waiting shouldn't feel confusing and uncertain."</p>
-        <button class="origin-toggle" type="button" aria-expanded="false">where this came from</button>
-        <p class="origin-note">Hospital queues are not just a technical queue problem. They are a patience, privacy, and uncertainty problem wearing a token number.</p>
-        <dl class="field-note-grid">
-          <div><dt>problem observed</dt><dd>Waiting feels worse when people do not know where they stand or what changed.</dd></div>
-          <div><dt>first rough idea</dt><dd>A queue that updates live and explains movement without exposing patient identity.</dd></div>
-          <div><dt>what stayed important</dt><dd>Real workflows. Walk-ins, recovery cases, staff roles, and privacy rules matter more than a neat demo.</dd></div>
-        </dl>
-        <p class="core">A serverless hospital queue management system for outpatient workflows, built around online appointments, walk-in registrations, live queue updates, ETA prediction, and staff-facing role flows. The goal was not just to show a queue, but to make the waiting room feel less uncertain without needing dedicated backend servers.</p>
+        <p class="core">Waiting is worse when you don't know where you stand. MediQ is a serverless hospital queue system covering online appointments, walk-ins, live queue movement, and ETA prediction — built around actual clinic workflows (recovery after a refresh, skipped tokens, staff roles) rather than a tidy demo case. Patient identity and queue state are kept in separate Firestore collections, so the tracking link stays public without exposing who's who.</p>
         <div class="stack">
           <span class="chip">Firebase</span>
           <span class="chip">Firestore</span>
@@ -1268,24 +1244,16 @@
           <span class="chip">ETA prediction</span>
           <span class="chip">Security Rules</span>
         </div>
-        <p class="findings">Designed role-based workflows, queue recovery mechanisms, and a privacy-conscious data model that separates patient identity from operational queue data using Firebase Security Rules.</p>
         <a class="repo-link" href="https://github.com/AJAYM03/MediQ" target="_blank" rel="noopener">view repo — MediQ ↗</a>
       </article>
 
       <article class="entry reveal" data-note="security field note">
         <div class="entry-head">
           <h3>DNS Spoofing Detection &amp; Alert System</h3>
-          <span class="entry-tag">June 2025 · CIAL internship</span>
+          <span class="entry-tag">CIAL internship · security</span>
         </div>
         <p class="entry-observation">"Public wi-fi trusts a lot more than it should."</p>
-        <button class="origin-toggle" type="button" aria-expanded="false">where this came from</button>
-        <p class="origin-note">This came from looking at public-network assumptions during my CIAL internship and asking what would happen if DNS quietly lied.</p>
-        <dl class="field-note-grid">
-          <div><dt>problem observed</dt><dd>DNS failures can look invisible to users until the wrong thing has already happened.</dd></div>
-          <div><dt>first rough idea</dt><dd>Watch packet-level DNS behavior and compare suspicious replies against trusted resolvers.</dd></div>
-          <div><dt>what stayed important</dt><dd>Make alerts useful for investigation, not just noisy. Detection needs context and logs.</dd></div>
-        </dl>
-        <p class="core">Built during my internship at Cochin International Airport Limited, this tool detects DNS spoofing and cache poisoning attempts through packet inspection and protocol-aware validation. It continuously watches DNS traffic, checks suspicious responses against trusted resolvers, and turns network-level weirdness into visible alerts.</p>
+        <p class="core">Built during my internship at Cochin International Airport, watching how much public wi-fi quietly trusts. This tool inspects DNS traffic at the packet level, checks suspicious responses against trusted resolvers, and flags transaction mismatches and TTL anomalies in real time — with a live dashboard, persistent forensic logs, and Telegram alerts so a detection actually turns into something investigable.</p>
         <div class="stack">
           <span class="chip">Python</span>
           <span class="chip">Scapy</span>
@@ -1293,7 +1261,6 @@
           <span class="chip">Socket.IO</span>
           <span class="chip">SQLite</span>
         </div>
-        <p class="findings">Implemented transaction validation, TTL anomaly detection, trusted DNS verification, a live monitoring dashboard, persistent forensic logging, and Telegram-based threat notifications.</p>
         <a class="repo-link" href="https://github.com/AJAYM03/DnsCheck" target="_blank" rel="noopener">view repo — DnsCheck ↗</a>
       </article>
 
@@ -1334,24 +1301,24 @@
     <h2 class="section-title reveal">Where I've been building.</h2>
     <ul class="timeline">
       <li class="reveal">
+        <div class="when">July 2024</div>
+        <div class="what">
+          <h3>Bornbix Technologies</h3>
+          <p>Data annotation and website work — one of those early hands-on stretches where I learned that small implementation details quietly shape the whole user experience.</p>
+        </div>
+      </li>
+      <li class="reveal">
         <div class="when">June 2025</div>
         <div class="what">
-          <h3>Project Intern Ã‚Â· Cochin International Airport Limited (CIAL)</h3>
+          <h3>Project Intern · Cochin International Airport Limited (CIAL)</h3>
           <p>Worked with the enterprise security team on a simulated network security project for detecting DNS spoofing. The work pulled me into DNS internals, packet-level networking, UDP/TCP communication, and practical defensive techniques while building a real-time threat detection system from scratch.</p>
         </div>
       </li>
       <li class="reveal">
-        <div class="when">July 2024</div>
-        <div class="what">
-          <h3>Bornbix Technologies</h3>
-          <p>Data annotation and website work Ã¢â‚¬â€ one of those early hands-on stretches where I learned that small implementation details quietly shape the whole user experience.</p>
-        </div>
-      </li>
-      <li class="reveal">
-        <div class="when">2022 Ã¢â‚¬â€ 2026</div>
+        <div class="when">2022 — 2026</div>
         <div class="what">
           <h3>Rajagiri School of Engineering &amp; Technology, Kochi</h3>
-          <p>B.Tech, Computer Science Engineering (Honours in Cybersecurity) Ã‚Â· CGPA 8.62</p>
+          <p>B.Tech, Computer Science Engineering (Honours in Cybersecurity) · CGPA 8.62</p>
         </div>
       </li>
     </ul>
@@ -1606,15 +1573,6 @@
       heroFieldNote.textContent = fieldNotes[Math.floor(Math.random() * fieldNotes.length)];
     }
 
-    document.querySelectorAll('.origin-toggle').forEach(button => {
-      button.addEventListener('click', () => {
-        const entry = button.closest('.entry');
-        const open = entry.classList.toggle('origin-open');
-        button.setAttribute('aria-expanded', String(open));
-        button.textContent = open ? 'hide origin note' : 'where this came from';
-      });
-    });
-
     const revealEls = Array.from(document.querySelectorAll('.reveal'));
     const navLinks = Array.from(document.querySelectorAll('.brand nav a[href^="#"]'));
     const pageIndexLinks = Array.from(document.querySelectorAll('.page-index a[href^="#"]'));
@@ -1666,15 +1624,41 @@
       });
     });
 
-    if ('IntersectionObserver' in window && sections.length && navLinks.length) {
-      const sectionObserver = new IntersectionObserver((entries) => {
-        const visible = entries
-          .filter(entry => entry.isIntersecting)
-          .sort((a, b) => b.intersectionRatio - a.intersectionRatio)[0];
-        if (visible) setActiveNav(visible.target.id);
-      }, { threshold: [0.18, 0.32, 0.55], rootMargin: '-20% 0px -58% 0px' });
-      sections.forEach(section => sectionObserver.observe(section));
-      setActiveNav(sections[0].id);
+    // Section-in-view detection for the nav: driven by scroll position rather than
+    // IntersectionObserver ratios. Ratio-based detection favours short sections
+    // (e.g. "experience") over tall ones (e.g. "built") even while the tall section
+    // still fills the screen, which was mis-highlighting the nav. Instead, we track
+    // which section's top has most recently crossed a fixed "reading line" near the
+    // top of the viewport (matched to the sticky header + scroll-margin-top) and
+    // treat that as the active section.
+    if (sections.length && navLinks.length) {
+      const readingLine = () => (window.innerWidth <= 720 ? 116 : 92);
+      let ticking = false;
+
+      const updateActiveSection = () => {
+        ticking = false;
+        const line = readingLine();
+        let current = sections[0];
+        for (const section of sections) {
+          if (section.getBoundingClientRect().top - line <= 0) {
+            current = section;
+          } else {
+            break;
+          }
+        }
+        setActiveNav(current.id);
+      };
+
+      const requestUpdate = () => {
+        if (!ticking) {
+          ticking = true;
+          window.requestAnimationFrame(updateActiveSection);
+        }
+      };
+
+      window.addEventListener('scroll', requestUpdate, { passive: true });
+      window.addEventListener('resize', requestUpdate, { passive: true });
+      updateActiveSection();
     }
 
     const motionAllowed = !window.matchMedia('(prefers-reduced-motion: reduce)').matches;
