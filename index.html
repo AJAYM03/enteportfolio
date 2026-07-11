@@ -7,18 +7,15 @@
 <meta name="description" content="Ajay Mukund A — a human who keeps noticing unnecessarily painful things and accidentally turning them into projects.">
 <meta name="theme-color" content="#16324A">
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext y='.9em' font-size='84'%3E%F0%9F%93%9D%3C/text%3E%3C/svg%3E">
-
 <meta property="og:type" content="website">
 <meta property="og:title" content="Ajay Mukund A — notes from a builder">
 <meta property="og:description" content="A human who keeps noticing unnecessarily painful things and accidentally turning them into projects.">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Ajay Mukund A — notes from a builder">
 <meta name="twitter:description" content="A human who keeps noticing unnecessarily painful things and accidentally turning them into projects.">
-
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@500;600;700&family=Space+Grotesk:wght@400;500;600;700&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
-
 <style>
   :root{
     --paper:#16324A;
@@ -34,14 +31,12 @@
     --card:#1D3F59;
     --max:840px;
   }
-
   *{box-sizing:border-box;}
   html{scroll-behavior:smooth;}
   @media (prefers-reduced-motion: reduce){
     html{scroll-behavior:auto;}
     *{animation-duration:0.01ms !important; animation-iteration-count:1 !important; transition-duration:0.01ms !important;}
   }
-
   body{
     margin:0;
     background:var(--paper);
@@ -59,14 +54,12 @@
       );
     background-attachment:local;
   }
-
   a{color:var(--pen);}
   a:focus-visible, button:focus-visible, .tab:focus-visible{
     outline:2px solid var(--pen);
     outline-offset:3px;
     border-radius:2px;
   }
-
   /* margin rule running down the page, notebook-style */
   .margin-rule{
     position:fixed;
@@ -93,12 +86,10 @@
     border:1px solid rgba(233,229,216,0.16);
     box-shadow:inset 0 1px 3px rgba(0,0,0,0.4);
   }
-
   @media (max-width:720px){
     .margin-rule{left:26px;}
     .holes{display:none;}
   }
-
   /* the margin rule "inks in" as you read further down the page — a page-wide
      echo of the same ink-fill idea already used on the timeline and feed,
      just tracking total scroll progress instead of a single section */
@@ -117,69 +108,62 @@
   @media (max-width:720px){
     .scroll-progress{left:26px;}
   }
-
-  /* a small pinned paper tab back to the top of the notebook — same taped
-     sticky-note language as the margin notes and project entries, rather
-     than a generic flat button. Shows once you've scrolled past the first
-     page; visible by default when JS can't toggle it. */
+  /* back to top, styled as a small dog-eared page corner rather than a
+     button — like flipping back to the first page of the notebook. Shows
+     once you've scrolled past roughly the first 40% of the viewport. */
   .back-to-top{
     position:fixed;
-    right:26px;
-    bottom:26px;
+    right:0;
+    bottom:0;
     z-index:15;
-    display:inline-flex;
-    align-items:center;
-    gap:7px;
-    font-family:'Caveat', cursive;
-    font-size:1.2rem;
-    line-height:1;
-    color:#33291B;
-    background:#F3E7BE;
-    border:none;
-    padding:12px 18px 12px 16px;
-    border-radius:2px;
+    width:42px;
+    height:42px;
     text-decoration:none;
-    box-shadow:
-      0 2px 0 rgba(255,255,255,0.4) inset,
-      0 14px 26px -12px rgba(0,0,0,0.55),
-      0 3px 6px rgba(0,0,0,0.2);
-    transform:rotate(-2deg);
-    transition:opacity .25s ease, transform .18s ease, box-shadow .2s ease;
+    transition:opacity .25s ease, transform .2s ease;
   }
-  .back-to-top-tape{
+  .js .back-to-top{opacity:0; transform:translateY(6px); pointer-events:none;}
+  .js .back-to-top.is-visible{opacity:1; transform:translateY(0); pointer-events:auto;}
+  .back-to-top-fold{
     position:absolute;
-    top:-10px;
-    left:22px;
-    width:48px;
-    height:17px;
-    background:rgba(231,173,78,0.55);
-    border-left:1px solid rgba(0,0,0,0.06);
-    border-right:1px solid rgba(0,0,0,0.06);
-    box-shadow:0 2px 4px rgba(0,0,0,0.22);
-    transform:rotate(-6deg);
+    inset:0;
+    clip-path:polygon(100% 0, 100% 100%, 0 100%);
+    background:linear-gradient(135deg, #F3E7BE 0%, #E4D19C 100%);
+    filter:drop-shadow(-2px -3px 5px rgba(0,0,0,0.32));
+    transition:transform .18s ease, filter .18s ease;
+  }
+  .back-to-top-fold::after{
+    content:'';
+    position:absolute;
+    right:0;
+    bottom:0;
+    width:62%;
+    height:62%;
+    clip-path:polygon(100% 0, 100% 100%, 0 100%);
+    background:rgba(0,0,0,0.09);
   }
   .back-to-top-arrow{
-    font-family:'Space Grotesk', sans-serif;
-    font-weight:600;
-    font-size:1.05rem;
-    color:#8C3A24;
-    transition:transform .2s ease;
+    position:absolute;
+    right:13px;
+    bottom:13px;
+    width:9px;
+    height:9px;
+    border-top:2px solid #3B2E1A;
+    border-left:2px solid #3B2E1A;
+    transform:rotate(45deg);
+    opacity:0.6;
+    transition:transform .18s ease, opacity .18s ease;
   }
-  .back-to-top:hover{
-    transform:rotate(0deg) translateY(-4px);
-    box-shadow:
-      0 2px 0 rgba(255,255,255,0.45) inset,
-      0 20px 34px -14px rgba(0,0,0,0.6),
-      0 4px 8px rgba(0,0,0,0.24);
+  .back-to-top:hover .back-to-top-arrow{
+    opacity:0.85;
+    transform:rotate(45deg) translate(-1px,-1px);
   }
-  .back-to-top:hover .back-to-top-arrow{transform:translateY(-2px);}
-  .js .back-to-top{opacity:0; transform:rotate(-2deg) translateY(10px); pointer-events:none;}
-  .js .back-to-top.is-visible{opacity:1; transform:rotate(-2deg) translateY(0); pointer-events:auto;}
-  .js .back-to-top.is-visible:hover{transform:rotate(0deg) translateY(-4px);}
+  .back-to-top:hover .back-to-top-fold{
+    transform:translate(-1px,-2px);
+    filter:drop-shadow(-3px -4px 7px rgba(0,0,0,0.42));
+  }
   @media (max-width:720px){
-    .back-to-top{right:14px; bottom:14px; padding:10px 14px 10px 13px; font-size:1.05rem;}
+    .back-to-top{width:34px; height:34px;}
   }
-
   .wrap{
     max-width:var(--max);
     margin:0 auto;
@@ -189,7 +173,6 @@
   @media (max-width:720px){
     .wrap{padding:0 22px 0 52px;}
   }
-
   header.site{
     padding:14px 0 6px;
     position:sticky;
@@ -388,7 +371,6 @@
     }
     section{scroll-margin-top:126px;}
   }
-
   /* HERO */
   .hero{
     padding:64px 0 60px;
@@ -399,10 +381,42 @@
     grid-template-columns:1.25fr 0.8fr;
     gap:52px;
     align-items:center;
+    position:relative;
   }
   @media (max-width:820px){
     .hero-grid{grid-template-columns:1fr; gap:30px;}
     .hero-photo{order:-1; max-width:180px; margin:0 auto;}
+  }
+  /* a messy hand-drawn arrow pointing from the greeting to the polaroid —
+     desktop layout only, since the two aren't side by side on mobile.
+     Coordinates are computed at runtime from the real rendered positions
+     of the dash and the photo tape, so the arrow always visibly connects
+     the two regardless of viewport width or font-render timing. */
+  .hero-arrow{
+    position:absolute;
+    inset:0;
+    width:100%;
+    height:100%;
+    pointer-events:none;
+    z-index:1;
+    overflow:visible;
+  }
+  .js .hero-arrow{opacity:0; transition:opacity .5s ease;}
+  .js .hero-arrow.is-ready{opacity:1;}
+  .hero-arrow-line,
+  .hero-arrow-head{
+    fill:none;
+    stroke:var(--amber);
+    stroke-width:2;
+    stroke-linecap:round;
+    stroke-linejoin:round;
+  }
+  .hero-arrow-retrace{
+    opacity:0.5;
+    stroke-width:1.4;
+  }
+  @media (max-width:820px){
+    .hero-arrow{display:none;}
   }
   .hero-photo{
     display:flex;
@@ -550,7 +564,6 @@
     font-family:'IBM Plex Mono', monospace;
     font-size:0.82rem;
   }
-
   .hero-actions{
     margin-top:34px;
     display:flex;
@@ -587,7 +600,33 @@
   }
   .btn:hover .btn-icon{transform:rotate(-8deg) scale(1.08);}
   .btn:nth-of-type(1) .btn-icon{transform-origin:60% 55%;}
-
+  /* hero buttons: small paper labels pasted onto the page, rather than
+     standard flat website buttons */
+  .hero-actions .btn{
+    background:#F3E7BE;
+    color:#3B2E1A;
+    border:1px solid rgba(59,46,26,0.22);
+    padding:8px 14px;
+    font-size:13px;
+    box-shadow:0 2px 5px rgba(0,0,0,0.18);
+    transform:rotate(-1deg);
+    transition:transform .18s ease, box-shadow .18s ease;
+  }
+  .hero-actions .btn.ghost{
+    background:#F3E7BE;
+    color:#3B2E1A;
+    border-color:rgba(59,46,26,0.22);
+  }
+  .hero-actions .btn:nth-child(2){transform:rotate(0.8deg);}
+  .hero-actions .btn:nth-child(3){transform:rotate(-0.6deg);}
+  .hero-actions .btn:hover,
+  .hero-actions .btn.ghost:hover{
+    background:#F3E7BE;
+    color:#3B2E1A;
+    border-color:rgba(59,46,26,0.3);
+    transform:rotate(0deg) translateY(-3px);
+    box-shadow:0 6px 12px rgba(0,0,0,0.22);
+  }
   /* SECTION SCAFFOLD */
   section{
     padding:64px 0;
@@ -658,7 +697,6 @@
     max-width:60ch;
     margin:-16px 0 34px;
   }
-
   /* HOW I THINK */
   .think-body p{
     max-width:64ch;
@@ -733,7 +771,6 @@
   @media (max-width:560px){
     .friction-log li{grid-template-columns:1fr; gap:2px;}
   }
-
   /* PROJECT ENTRIES ("things that bothered me enough") — sticky notes pinned to the page */
   .entries{
     display:grid;
@@ -829,6 +866,10 @@
   .entry:focus-within::after{
     opacity:0.9;
     transform:translateX(0) rotate(-4deg);
+  }
+  @media (max-width:720px){
+    .entries{grid-template-columns:1fr; gap:34px; justify-items:center;}
+    .entry{max-width:340px; width:100%;}
   }
   @media (max-width:980px){
     .entry::after{display:none;}
@@ -968,7 +1009,6 @@
   .entry .repo-link::after{
     background-color:var(--note-accent);
   }
-
   .more-repos{
     margin-top:8px;
     padding-top:28px;
@@ -1047,7 +1087,6 @@
     background:var(--amber);
     border-color:var(--amber);
   }
-
   .feed{
     position:relative;
   }
@@ -1279,7 +1318,6 @@
     .feed-item.side-left .feed-meta,
     .feed-item.side-right .feed-meta{margin:0; justify-content:flex-start;}
   }
-
   /* a small hand-labeled tag, surfacing the "field log" feel already implied
      by the section — used once, not on every section */
   .meta-tag{
@@ -1293,7 +1331,6 @@
     transform:rotate(-2deg);
     border-radius:2px;
   }
-
   /* MARGIN NOTES — a handful of scattered asides sitting in the open gutter
      beside the reading column, like something jotted in the margin rather
      than typed inline. Deliberately few (not one per section) so the page
@@ -1339,7 +1376,6 @@
     transform:rotate(var(--tilt, -3deg)) translateY(calc((1 - var(--p, 0)) * 14px));
     transition:opacity .15s linear, transform .15s linear;
   }
-
   /* EXPERIENCE — a field log: vertical connector line with sketch-annotated entries */
   .timeline{
     position:relative;
@@ -1426,7 +1462,6 @@
   @media (max-width:560px){
     .timeline li{padding-left:26px;}
   }
-
   /* SKILLS — a quick index from the back of the notebook */
   .skill-grid{
     display:grid;
@@ -1562,7 +1597,6 @@
     flex-wrap:wrap;
     margin-top:22px;
   }
-
   footer{
     padding:40px 0 80px;
     font-family:'IBM Plex Mono', monospace;
@@ -1574,7 +1608,13 @@
     gap:10px;
     position:relative;
   }
-
+  .footer-note{
+    width:100%;
+    font-family:'Caveat', cursive;
+    font-size:1.05rem;
+    color:var(--ink-faint);
+    opacity:0.8;
+  }
   .scribble-canvas{
     position:fixed;
     inset:0;
@@ -1591,8 +1631,6 @@
   @media (pointer:coarse), (prefers-reduced-motion: reduce){
     .scribble-canvas{display:none;}
   }
-
-
   /* default: a small drafting pencil, tip at the hotspot */
   html, body {
     cursor: url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' width='28' height='28' viewBox='0 0 28 28'><g transform='rotate(-45 14 14)'><rect x='11' y='2' width='6' height='16' rx='1' fill='%23F5EFE0' stroke='%232A2A2A' stroke-width='1'/><rect x='11' y='2' width='6' height='4' rx='1' fill='%23D2604F' stroke='%232A2A2A' stroke-width='0.6'/><rect x='11' y='6.3' width='6' height='1.4' fill='%23C8A24A'/><path d='M11 18 L17 18 L14 24.5 Z' fill='%23C8874A' stroke='%232A2A2A' stroke-width='0.6' stroke-linejoin='round'/><path d='M12.6 20.6 L15.4 20.6 L14 24 Z' fill='%232A2A2A'/></g></svg>") 21 21, auto;
@@ -1601,9 +1639,7 @@
   a, button, .tab, .btn, .repo-chip, summary, [role="tab"] {
     cursor: url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' width='30' height='30' viewBox='0 0 30 30'><g transform='rotate(28 15 15)'><rect x='13' y='11' width='4' height='17' rx='1.4' fill='%23C8874A' stroke='%232A2A2A' stroke-width='1'/><rect x='6' y='4' width='18' height='7.5' rx='1.6' fill='%23A2B4C2' stroke='%232A2A2A' stroke-width='1'/><rect x='6' y='4' width='18' height='2.4' rx='1.2' fill='%23C7D3DB'/></g></svg>") 9 8, pointer;
   }
-
   ::selection{background:var(--highlight);}
-
   /* animation: content is visible by default; only animates once JS confirms it can run.
      --p (0-1) is written by the scroll-scrub engine below — a short, cheap
      transition smooths the per-frame steps so it reads as scrubbing rather
@@ -1614,7 +1650,6 @@
     transform:translateY(calc((1 - var(--p, 0)) * 16px));
     transition:opacity .15s linear, transform .15s linear;
   }
-
   @keyframes fadeUp{
     from{opacity:0; transform:translateY(14px);}
     to{opacity:1; transform:translateY(0);}
@@ -1628,7 +1663,6 @@
   .js .hero-copy .annotation{animation:fadeUp .75s ease 1.14s both;}
   .js .hero-copy .hero-actions{animation:fadeUp .75s ease 1.32s both;}
   .js .hero-photo{animation:fadeUp .9s ease .25s both;}
-
   /* the nav strip drops into place like a clipped sheet settling on the page */
   @keyframes navSettle{
     from{opacity:0; transform:translateY(-8px) rotate(-1.1deg);}
@@ -1639,7 +1673,6 @@
     animation:fadeUp .4s ease .2s both;
     transform-origin:top center;
   }
-
   .entry{transition:transform .2s ease, border-color .2s ease;}
   .entry:hover{transform:translateY(-3px); border-color:var(--pen);}
   .repo-chip{transition:border-color .15s ease, transform .15s ease;}
@@ -1647,12 +1680,11 @@
 </style>
 </head>
 <body>
-
 <canvas class="scribble-canvas" aria-hidden="true"></canvas>
 <div class="margin-rule" aria-hidden="true"></div>
 <div class="scroll-progress" aria-hidden="true"></div>
 <div class="holes" aria-hidden="true"><span></span><span></span><span></span><span></span><span></span><span></span></div>
-<a class="back-to-top" href="#top" aria-label="Back to top of the page">top</a>
+<a class="back-to-top" href="#top" aria-label="Back to top of the page"><span class="back-to-top-fold" aria-hidden="true"></span><span class="back-to-top-arrow" aria-hidden="true"></span></a>
 <nav class="page-index" aria-label="Notebook section index">
   <a href="#think" data-label="think"></a>
   <a href="#built" data-label="built"></a>
@@ -1661,9 +1693,7 @@
   <a href="#skills" data-label="tools"></a>
   <a href="#contact" data-label="talk"></a>
 </nav>
-
 <div class="wrap">
-
   <header class="site">
     <div class="brand">
       <svg class="brand-clip" viewBox="0 0 24 24" fill="none" aria-hidden="true">
@@ -1681,11 +1711,10 @@
       </nav>
     </div>
   </header>
-
   <section class="hero" id="top">
     <div class="hero-grid">
       <div class="hero-copy">
-        <span class="hand">hi, i'm ajay —</span>
+        <span class="hand">hi, i'm ajay <span class="hero-dash">—</span></span>
         <h1>a <span class="who">builder</span> who keeps noticing things that are unnecessarily painful.</h1>
         <p class="lede">Most of what I make begins the same way: <span class="mark">"this is unnecessarily painful, surely there's a better way."</span> I'm a final-year CS engineer from Kerala with an Honours in Cybersecurity, and I accidentally keep turning everyday friction into software.</p>
         <p class="lede">Still learning. Still building. Still prototyping ideas and debugging reality :)</p>
@@ -1706,10 +1735,14 @@
           <p class="photo-caption">ajay, mostly debugged</p>
         </div>
       </div>
+      <svg class="hero-arrow" viewBox="0 0 716 827" preserveAspectRatio="none" aria-hidden="true">
+        <path class="hero-arrow-line" d="M 409 31 C 450 20 470 55 440 78 C 415 98 460 120 480 148 C 500 172 445 190 460 215 C 470 230 480 225 497 245"/>
+        <path class="hero-arrow-line hero-arrow-retrace" d="M 412 35 C 452 24 473 58 443 81 C 418 101 462 123 483 151 C 502 175 448 193 463 218 C 473 233 483 228 500 248"/>
+        <path class="hero-arrow-head" d="M 497 245 L 480 239 M 497 245 L 494 227"/>
+      </svg>
     </div>
     <aside class="margin-note reveal" style="top:60px; --tilt:-4deg;" aria-hidden="true">i almost didn't build this website</aside>
   </section>
-
   <section id="think">
     <span class="eyebrow"><span class="eyebrow-num">01<svg class="eyebrow-ring" viewBox="0 0 68 52" aria-hidden="true"><path d="M35 2.3 C51 1 66.5 9.5 65 25.5 C63.6 40.8 49.5 50.5 33.5 49.7 C16.8 48.9 2.3 40 3.1 24.4 C3.8 10 18 3.6 35 2.3 Z"/></svg></span><span class="eyebrow-label">how i think</span></span>
     <h2 class="section-title reveal">I don't usually start with "what should I build?"</h2>
@@ -1728,16 +1761,12 @@
     </div>
     <aside class="margin-note sage reveal" style="top:300px; --tilt:2deg;" aria-hidden="true">probably over engineering this</aside>
   </section>
-
   <section id="built">
     <span class="eyebrow"><span class="eyebrow-num">02<svg class="eyebrow-ring" viewBox="0 0 68 52" aria-hidden="true"><path d="M35 2.3 C51 1 66.5 9.5 65 25.5 C63.6 40.8 49.5 50.5 33.5 49.7 C16.8 48.9 2.3 40 3.1 24.4 C3.8 10 18 3.6 35 2.3 Z"/></svg></span><span class="eyebrow-label">things that bothered me enough to build something</span></span>
     <h2 class="section-title reveal">A running log of small annoyances that became working software.</h2>
     <p class="section-intro">Not a pitch deck. Not a polished trophy shelf. Just the things that annoyed me enough to open the editor and try a fix.</p>
-
     <aside class="margin-note clay reveal" style="top:20px; --tilt:-3deg;" aria-hidden="true">one idea somehow became another</aside>
-
     <div class="entries">
-
       <article class="entry reveal" data-note="built after getting annoyed">
         <div class="entry-thumb">
           <span class="glyph">01</span>
@@ -1757,7 +1786,6 @@
           <a class="repo-link" href="https://github.com/AJAYM03/Haajar" target="_blank" rel="noopener">view repo — Haajar ↗</a>
         </div>
       </article>
-
       <article class="entry reveal" data-note="research margin">
         <div class="entry-thumb">
           <span class="glyph">02</span>
@@ -1777,7 +1805,6 @@
           <a class="repo-link" href="https://github.com/AJAYM03/Fog-Orchestrator" target="_blank" rel="noopener">view repo — Fog-Orchestrator ↗</a>
         </div>
       </article>
-
       <article class="entry reveal" data-note="waiting room note">
         <div class="entry-thumb">
           <span class="glyph">03</span>
@@ -1797,7 +1824,6 @@
           <a class="repo-link" href="https://github.com/AJAYM03/MediQ" target="_blank" rel="noopener">view repo — MediQ ↗</a>
         </div>
       </article>
-
       <article class="entry reveal" data-note="security field note">
         <div class="entry-thumb">
           <span class="glyph">04</span>
@@ -1817,7 +1843,6 @@
           <a class="repo-link" href="https://github.com/AJAYM03/DnsCheck" target="_blank" rel="noopener">view repo — DnsCheck ↗</a>
         </div>
       </article>
-
     </div>
     <div class="more-repos">
       <span class="more-repos-label">a few more from the shelf —</span>
@@ -1839,30 +1864,26 @@
     </div>
     <aside class="margin-note reveal" style="top:520px; --tilt:3deg;" aria-hidden="true">this section keeps changing</aside>
   </section>
-
   <section id="observations">
     <span class="eyebrow"><span class="eyebrow-num">03<svg class="eyebrow-ring" viewBox="0 0 68 52" aria-hidden="true"><path d="M35 2.3 C51 1 66.5 9.5 65 25.5 C63.6 40.8 49.5 50.5 33.5 49.7 C16.8 48.9 2.3 40 3.1 24.4 C3.8 10 18 3.6 35 2.3 Z"/></svg></span><span class="eyebrow-label">updates from posts</span></span>
     <h2 class="section-title reveal">Notes from things I have been thinking through.</h2>
     <p class="section-intro">The latest three notes stay here. Older ones slide into the shelf below. Each note comes from a post folder with <code>post.md</code> and any images from the original post.</p>
-
     <div class="obs-filter reveal" id="obs-filter" aria-label="filter notes by topic"></div>
-
     <div class="feed" id="linkedin-updates-feed" aria-live="polite">
       <p class="feed-empty">Loading notes from uploaded posts...</p>
     </div>
     <a class="repo-link" href="https://www.linkedin.com/in/ajay-mukund03/recent-activity/all/" target="_blank" rel="noopener">read more on linkedin ↗</a>
   </section>
-
   <section id="experience">
     <span class="eyebrow"><span class="eyebrow-num">04<svg class="eyebrow-ring" viewBox="0 0 68 52" aria-hidden="true"><path d="M35 2.3 C51 1 66.5 9.5 65 25.5 C63.6 40.8 49.5 50.5 33.5 49.7 C16.8 48.9 2.3 40 3.1 24.4 C3.8 10 18 3.6 35 2.3 Z"/></svg></span><span class="eyebrow-label">experience</span></span>
     <span class="meta-tag">field log</span>
     <h2 class="section-title reveal">Where I've been building.</h2>
     <ul class="timeline">
       <li class="reveal">
-        <div class="when">July 2024</div>
+        <div class="when">2022 — 2026</div>
         <div class="what">
-          <h3>Bornbix Technologies</h3>
-          <p>Data annotation and website work — one of those early hands-on stretches where I learned that small implementation details quietly shape the whole user experience.</p>
+          <h3>Rajagiri School of Engineering &amp; Technology, Kochi</h3>
+          <p>B.Tech, Computer Science Engineering (Honours in Cybersecurity) · CGPA 8.62</p>
         </div>
       </li>
       <li class="reveal">
@@ -1873,15 +1894,14 @@
         </div>
       </li>
       <li class="reveal">
-        <div class="when">2022 — 2026</div>
+        <div class="when">July 2024</div>
         <div class="what">
-          <h3>Rajagiri School of Engineering &amp; Technology, Kochi</h3>
-          <p>B.Tech, Computer Science Engineering (Honours in Cybersecurity) · CGPA 8.62</p>
+          <h3>Bornbix Technologies</h3>
+          <p>Data annotation and website work — one of those early hands-on stretches where I learned that small implementation details quietly shape the whole user experience.</p>
         </div>
       </li>
     </ul>
   </section>
-
   <section id="skills">
     <span class="eyebrow"><span class="eyebrow-num">05<svg class="eyebrow-ring" viewBox="0 0 68 52" aria-hidden="true"><path d="M35 2.3 C51 1 66.5 9.5 65 25.5 C63.6 40.8 49.5 50.5 33.5 49.7 C16.8 48.9 2.3 40 3.1 24.4 C3.8 10 18 3.6 35 2.3 Z"/></svg></span><span class="eyebrow-label">skills &amp; certifications</span></span>
     <h2 class="section-title reveal">The tools I keep reaching for.</h2>
@@ -1933,7 +1953,6 @@
     <span class="hand">currently debugging</span>
     <p><code>student workflows</code>, hospital queue uncertainty, fog scheduling trade-offs, and the habit of turning "this is annoying" into another weekend prototype.</p>
   </div>
-
   <section id="contact">
     <span class="eyebrow"><span class="eyebrow-num">06<svg class="eyebrow-ring" viewBox="0 0 68 52" aria-hidden="true"><path d="M35 2.3 C51 1 66.5 9.5 65 25.5 C63.6 40.8 49.5 50.5 33.5 49.7 C16.8 48.9 2.3 40 3.1 24.4 C3.8 10 18 3.6 35 2.3 Z"/></svg></span><span class="eyebrow-label">contact</span></span>
     <div class="contact-block reveal">
@@ -1956,22 +1975,18 @@
       </div>
     </div>
   </section>
-
   <footer>
     <span>Ajay Mukund A · Kerala, India</span>
     <span>still debugging reality, one page at a time</span>
+    <span class="footer-note">still adding things here.</span>
     <aside class="margin-note reveal" style="top:-10px; --tilt:-2deg;" aria-hidden="true">yes, i spent too long choosing fonts</aside>
   </footer>
-
 </div>
-
 <script>
   try {
     document.documentElement.classList.add('js');
-
     const motionAllowed = !window.matchMedia('(prefers-reduced-motion: reduce)').matches;
     const finePointer = window.matchMedia('(pointer:fine)').matches;
-
     // ---- scroll-scrubbed motion engine ----
     // Drives a --p (0 to 1) custom property on marked elements based on
     // scroll position, so motion tracks the scrollbar directly: keep
@@ -1985,7 +2000,6 @@
     // transform/opacity, so nothing here forces layout.
     const scrubActive = new Set();
     let scrubRaf = 0;
-
     const scrubProgress = (el) => {
       const rect = el.getBoundingClientRect();
       const vh = window.innerHeight || document.documentElement.clientHeight;
@@ -2002,7 +2016,6 @@
       const end = vh * 0.55;
       return Math.min(1, Math.max(0, (start - rect.top) / (start - end)));
     };
-
     const scrubTick = () => {
       scrubActive.forEach((el) => {
         el.style.setProperty('--p', scrubProgress(el).toFixed(3));
@@ -2012,7 +2025,6 @@
     const wakeScrub = () => {
       if (!scrubRaf) scrubRaf = requestAnimationFrame(scrubTick);
     };
-
     const scrubIo = (motionAllowed && 'IntersectionObserver' in window)
       ? new IntersectionObserver((entries) => {
           entries.forEach((entry) => {
@@ -2027,7 +2039,6 @@
           });
         }, { threshold: 0, rootMargin: '60px 0px 60px 0px' })
       : null;
-
     const registerScrub = (el, mode) => {
       if (!el) return;
       if (!motionAllowed) {
@@ -2038,7 +2049,87 @@
       if (scrubIo) scrubIo.observe(el);
       else el.style.setProperty('--p', 1);
     };
-
+    // ---- hero arrow: connect the dash to the polaroid ----
+    // The arrow used to be drawn at fixed SVG coordinates that only lined
+    // up with the dash and the photo at one particular viewport width and
+    // font-render state. Instead, measure where the dash actually ends
+    // and where the photo tape actually sits (in the hero-grid's own
+    // coordinate space) and reshape the same hand-drawn wiggle to travel
+    // exactly between those two real points. Runs after fonts/animations
+    // settle and again on resize, so it always stays connected. Bails out
+    // entirely under the 820px breakpoint, where the arrow is hidden and
+    // the layout stacks instead.
+    const heroArrowSvg = document.querySelector('.hero-arrow');
+    const heroGrid = document.querySelector('.hero-grid');
+    const heroDash = document.querySelector('.hero-dash');
+    const heroTape = document.querySelector('.hero-photo .photo-tape:not(.two)');
+    if (heroArrowSvg && heroGrid && heroDash && heroTape) {
+      const origStart = { x: 409, y: 31 };
+      const origTip = { x: 497, y: 245 };
+      const mainPts = [409,31, 450,20,470,55,440,78, 415,98,460,120,480,148, 500,172,445,190,460,215, 470,230,480,225,497,245];
+      const retracePts = [412,35, 452,24,473,58,443,81, 418,101,462,123,483,151, 502,175,448,193,463,218, 473,233,483,228,500,248];
+      const mainLineEl = heroArrowSvg.querySelector('.hero-arrow-line:not(.hero-arrow-retrace)');
+      const retraceEl = heroArrowSvg.querySelector('.hero-arrow-retrace');
+      const headEl = heroArrowSvg.querySelector('.hero-arrow-head');
+      const updateHeroArrow = () => {
+        if (window.innerWidth <= 820) return; // stacked layout, arrow stays hidden
+        const gridRect = heroGrid.getBoundingClientRect();
+        if (!gridRect.width || !gridRect.height) return;
+        const dashRect = heroDash.getBoundingClientRect();
+        const tapeRect = heroTape.getBoundingClientRect();
+        if (!dashRect.width || !tapeRect.width) return;
+        const toViewBox = (px, py) => ({
+          x: (px - gridRect.left) / gridRect.width * 716,
+          y: (py - gridRect.top) / gridRect.height * 827
+        });
+        // arrow now literally starts where the dash ends
+        const newStart = toViewBox(dashRect.right - 1, dashRect.top + dashRect.height * 0.55);
+        // and points at the tape pinning the polaroid down
+        const newEnd = toViewBox(tapeRect.left + tapeRect.width * 0.32, tapeRect.top + tapeRect.height * 0.65);
+        const scaleX = (newEnd.x - newStart.x) / (origTip.x - origStart.x || 1);
+        const scaleY = (newEnd.y - newStart.y) / (origTip.y - origStart.y || 1);
+        const mapPoint = (x, y) => ({
+          x: newStart.x + (x - origStart.x) * scaleX,
+          y: newStart.y + (y - origStart.y) * scaleY
+        });
+        const fmt = (pt) => `${pt.x.toFixed(1)} ${pt.y.toFixed(1)}`;
+        const buildD = (pts) => {
+          const m = [];
+          for (let i = 0; i < pts.length; i += 2) m.push(mapPoint(pts[i], pts[i + 1]));
+          return `M ${fmt(m[0])} C ${fmt(m[1])} ${fmt(m[2])} ${fmt(m[3])} `
+            + `C ${fmt(m[4])} ${fmt(m[5])} ${fmt(m[6])} `
+            + `C ${fmt(m[7])} ${fmt(m[8])} ${fmt(m[9])} `
+            + `C ${fmt(m[10])} ${fmt(m[11])} ${fmt(m[12])}`;
+        };
+        if (mainLineEl) mainLineEl.setAttribute('d', buildD(mainPts));
+        if (retraceEl) retraceEl.setAttribute('d', buildD(retracePts));
+        if (headEl) {
+          const tip = mapPoint(origTip.x, origTip.y);
+          const before = mapPoint(480, 225);
+          let dx = tip.x - before.x, dy = tip.y - before.y;
+          const len = Math.hypot(dx, dy) || 1;
+          dx /= len; dy /= len;
+          const ang = Math.atan2(dy, dx);
+          const headLen = Math.min(18, Math.max(9, len * 0.85));
+          const a1 = ang + Math.PI - 0.5, a2 = ang + Math.PI + 0.5;
+          const h1 = { x: tip.x + Math.cos(a1) * headLen, y: tip.y + Math.sin(a1) * headLen };
+          const h2 = { x: tip.x + Math.cos(a2) * headLen, y: tip.y + Math.sin(a2) * headLen };
+          headEl.setAttribute('d', `M ${fmt(tip)} L ${fmt(h1)} M ${fmt(tip)} L ${fmt(h2)}`);
+        }
+        heroArrowSvg.classList.add('is-ready');
+      };
+      let heroArrowRaf = 0;
+      const scheduleHeroArrowUpdate = () => {
+        if (heroArrowRaf) cancelAnimationFrame(heroArrowRaf);
+        heroArrowRaf = requestAnimationFrame(updateHeroArrow);
+      };
+      window.setTimeout(updateHeroArrow, motionAllowed ? 1200 : 0);
+      if (document.fonts && document.fonts.ready) {
+        document.fonts.ready.then(() => window.setTimeout(updateHeroArrow, 60));
+      }
+      window.addEventListener('resize', scheduleHeroArrowUpdate, { passive: true });
+      window.addEventListener('orientationchange', scheduleHeroArrowUpdate, { passive: true });
+    }
     const fallbackLinkedInUpdates = [
       {
         date: 'this month',
@@ -2055,33 +2146,27 @@
         images: []
       }
     ];
-
     const escapeHtml = (value) => String(value ?? '')
       .replace(/&/g, '&amp;')
       .replace(/</g, '&lt;')
       .replace(/>/g, '&gt;')
       .replace(/"/g, '&quot;')
       .replace(/'/g, '&#39;');
-
     const firstLines = (text, count = 3) => String(text || '')
       .split(/\r?\n/)
       .map(line => line.trim())
       .filter(Boolean)
       .slice(0, count)
       .join('\n');
-
     const titleFromPost = (text) => firstLines(text, 1) || 'Uploaded note';
-
     const markdownTextToHtml = (text) => escapeHtml(text).replace(
       /\[([^\]]+)\]\((https?:\/\/[^)\s]+)\)/g,
       '<a href="$2" target="_blank" rel="noopener">$1</a>'
     );
-
     const parsePostMarkdown = (markdown, folder) => {
       const lines = String(markdown || '').split(/\r?\n/);
       const meta = {};
       let bodyStart = 0;
-
       for (let i = 0; i < lines.length; i += 1) {
         const line = lines[i].trim();
         if (line === '---') {
@@ -2093,7 +2178,6 @@
         meta[match[1].toLowerCase()] = match[2].trim();
         bodyStart = i + 1;
       }
-
       const images = [];
       const body = lines.slice(bodyStart).join('\n');
       const text = body.replace(/!\[([^\]]*)\]\(([^)]+)\)/g, (match, alt, src) => {
@@ -2104,7 +2188,6 @@
         });
         return '';
       }).replace(/\n{3,}/g, '\n\n').trim();
-
       return {
         date: meta.date || folder.match(/^(\d{4}-\d{2}-\d{2})/)?.[1] || 'undated',
         topic: meta.topic || 'from linkedin',
@@ -2114,12 +2197,10 @@
         images
       };
     };
-
     const slugify = (value) => String(value || 'general')
       .toLowerCase()
       .replace(/[^a-z0-9]+/g, '-')
       .replace(/(^-|-$)/g, '') || 'general';
-
     const renderLinkedInUpdates = (updates) => {
       const feed = document.getElementById('linkedin-updates-feed');
       const filterBar = document.getElementById('obs-filter');
@@ -2165,7 +2246,6 @@
         ? `<details class="feed-archive"><summary>older notes from the shelf (${archivedUpdates.length})</summary><div class="feed-archive-list">${archivedUpdates.map((update, index) => updateMarkup(update, index + 3, sideFor(index + 3))).join('')}</div></details>`
         : '';
       feed.innerHTML = visibleUpdates.map((update, index) => updateMarkup(update, index, sideFor(index))).join('') + archive;
-
       if (filterBar) {
         const topics = [];
         const seen = new Set();
@@ -2218,7 +2298,6 @@
       });
       feed.querySelectorAll('.reveal').forEach(el => registerScrub(el, 'enter'));
     };
-
     const loadLinkedInUpdates = async () => {
       try {
         const indexResponse = await fetch('linkedin-updates/index.json', { cache: 'no-store' });
@@ -2234,9 +2313,7 @@
         renderLinkedInUpdates(fallbackLinkedInUpdates);
       }
     };
-
     loadLinkedInUpdates();
-
     const fieldNotes = [
       'opened the editor again',
       'probably overthinking a workflow',
@@ -2248,14 +2325,12 @@
     if (heroFieldNote) {
       heroFieldNote.textContent = fieldNotes[Math.floor(Math.random() * fieldNotes.length)];
     }
-
     const navLinks = Array.from(document.querySelectorAll('.brand nav a[href^="#"]'));
     const pageIndexLinks = Array.from(document.querySelectorAll('.page-index a[href^="#"]'));
     const navById = new Map(navLinks.map(link => [link.getAttribute('href').slice(1), link]));
     const sections = Array.from(navById.keys())
       .map(id => document.getElementById(id))
       .filter(Boolean);
-
     const setActiveNav = (id) => {
       [...navLinks, ...pageIndexLinks].forEach(link => {
         const active = link === navById.get(id);
@@ -2270,33 +2345,28 @@
         link.classList.toggle('is-read', currentIndex >= 0 && index < currentIndex);
       });
     };
-
     // reveal fades, eyebrow rings, and the timeline/feed ink lines all
     // scrub with scroll position — see the engine defined above
     document.querySelectorAll('.reveal').forEach(el => registerScrub(el, 'enter'));
     document.querySelectorAll('.eyebrow').forEach(el => registerScrub(el, 'enter'));
     document.querySelectorAll('.timeline').forEach(el => registerScrub(el, 'span'));
     registerScrub(document.getElementById('linkedin-updates-feed'), 'span');
-
     const markSectionArrival = (section) => {
       if (!section || window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
       section.classList.add('section-arrived');
       window.setTimeout(() => section.classList.remove('section-arrived'), 700);
     };
-
     [...navLinks, ...pageIndexLinks].forEach(link => {
       link.addEventListener('click', () => {
         const id = link.getAttribute('href')?.slice(1);
         window.setTimeout(() => markSectionArrival(document.getElementById(id)), 360);
       });
     });
-
     if (sections.length && navLinks.length) {
       const readingLine = () => (window.innerWidth <= 720 ? 116 : 92);
       const progressEl = document.querySelector('.scroll-progress');
       const backToTop = document.querySelector('.back-to-top');
       let ticking = false;
-
       const updateActiveSection = () => {
         ticking = false;
         const line = readingLine();
@@ -2309,7 +2379,6 @@
           }
         }
         setActiveNav(current.id);
-
         if (progressEl) {
           const doc = document.documentElement;
           const scrollable = Math.max(doc.scrollHeight - window.innerHeight, 1);
@@ -2317,22 +2386,19 @@
           progressEl.style.height = `${(progress * 100).toFixed(2)}%`;
         }
         if (backToTop) {
-          backToTop.classList.toggle('is-visible', window.scrollY > window.innerHeight * 0.7);
+          backToTop.classList.toggle('is-visible', window.scrollY > window.innerHeight * 0.4);
         }
       };
-
       const requestUpdate = () => {
         if (!ticking) {
           ticking = true;
           window.requestAnimationFrame(updateActiveSection);
         }
       };
-
       window.addEventListener('scroll', requestUpdate, { passive: true });
       window.addEventListener('resize', requestUpdate, { passive: true });
       updateActiveSection();
     }
-
     // photo tilt on cursor: the polaroid follows the pointer like it's
     // being held up to look at, then eases back to its resting tilt
     const photoFrame = document.querySelector('.photo-frame');
@@ -2342,18 +2408,15 @@
       let ticking = false;
       let targetX = 0.5;
       let targetY = 0.5;
-
       const applyTilt = () => {
         ticking = false;
         const rotY = (targetX - 0.5) * maxTilt * 2;
         const rotX = (0.5 - targetY) * maxTilt;
         photoFrame.style.transform = `rotate(${restTilt}deg) rotateX(${rotX}deg) rotateY(${rotY}deg)`;
       };
-
       photoFrame.addEventListener('pointerenter', () => {
         photoFrame.classList.add('is-tilting');
       });
-
       photoFrame.addEventListener('pointermove', (event) => {
         const rect = photoFrame.getBoundingClientRect();
         targetX = (event.clientX - rect.left) / rect.width;
@@ -2363,15 +2426,12 @@
           window.requestAnimationFrame(applyTilt);
         }
       });
-
       photoFrame.addEventListener('pointerleave', () => {
         photoFrame.classList.remove('is-tilting');
         photoFrame.style.transform = `rotate(${restTilt}deg)`;
       });
     }
-
     const canvas = document.querySelector('.scribble-canvas');
-
     if (canvas && motionAllowed && finePointer && canvas.getContext) {
       const ctx = canvas.getContext('2d');
       const strokes = [];
@@ -2383,7 +2443,6 @@
       let raf = 0;
       let scrollRaf = 0;
       let dpr = 1;
-
       const resizeCanvas = () => {
         dpr = Math.min(window.devicePixelRatio || 1, 2);
         canvas.width = Math.ceil(window.innerWidth * dpr);
@@ -2392,15 +2451,11 @@
         canvas.style.height = `${window.innerHeight}px`;
         ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
       };
-
       const isInteractiveTarget = (target) => target.closest('a, button, input, textarea, select, summary, [role="button"], [role="tab"]');
-
       const pointFromEvent = (event) => ({ x: event.clientX, y: event.clientY, t: performance.now() });
-
       const drawFrame = (now) => {
         ctx.clearRect(0, 0, canvas.width / dpr, canvas.height / dpr);
         while (strokes.length && now - strokes[0].t > lifetime) strokes.shift();
-
         ctx.lineCap = 'round';
         ctx.lineJoin = 'round';
         for (const stroke of strokes) {
@@ -2415,27 +2470,22 @@
           ctx.stroke();
         }
         ctx.globalAlpha = 1;
-
         if (strokes.length || drawing) raf = requestAnimationFrame(drawFrame);
         else raf = 0;
       };
-
       const wake = () => {
         if (!raf) raf = requestAnimationFrame(drawFrame);
       };
-
       const stopEdgeScroll = () => {
         if (scrollRaf) cancelAnimationFrame(scrollRaf);
         scrollRaf = 0;
         lastPointer = null;
       };
-
       const edgeScrollStep = () => {
         if (!drawing || !lastPointer) {
           stopEdgeScroll();
           return;
         }
-
         const edge = Math.min(130, window.innerHeight * 0.18);
         let delta = 0;
         if (lastPointer.y > window.innerHeight - edge) {
@@ -2443,24 +2493,20 @@
         } else if (lastPointer.y < edge) {
           delta = -(((edge - lastPointer.y) / edge) * 14);
         }
-
         if (Math.abs(delta) > 0.25) {
           window.scrollBy({ top: delta, left: 0, behavior: 'auto' });
         }
         scrollRaf = requestAnimationFrame(edgeScrollStep);
       };
-
       const wakeEdgeScroll = () => {
         if (!scrollRaf) scrollRaf = requestAnimationFrame(edgeScrollStep);
       };
-
       const stopDrawing = () => {
         drawing = false;
         lastPoint = null;
         stopEdgeScroll();
         document.body.classList.remove('is-scribbling');
       };
-
       document.addEventListener('pointerdown', (event) => {
         if (event.button !== 0 || event.pointerType === 'touch' || isInteractiveTarget(event.target)) return;
         drawing = true;
@@ -2470,7 +2516,6 @@
         wake();
         wakeEdgeScroll();
       });
-
       document.addEventListener('pointermove', (event) => {
         if (!drawing || !lastPoint || event.pointerType === 'touch') return;
         const nextPoint = pointFromEvent(event);
@@ -2479,7 +2524,6 @@
         const dx = nextPoint.x - lastPoint.x;
         const dy = nextPoint.y - lastPoint.y;
         if ((dx * dx) + (dy * dy) < 9) return;
-
         strokes.push({
           x1: lastPoint.x,
           y1: lastPoint.y,
@@ -2495,7 +2539,6 @@
         lastPoint = nextPoint;
         wake();
       });
-
       document.addEventListener('pointerup', stopDrawing);
       document.addEventListener('pointercancel', stopDrawing);
       window.addEventListener('blur', stopDrawing);
@@ -2508,6 +2551,5 @@
     document.documentElement.classList.remove('js');
   }
 </script>
-
 </body>
 </html>
