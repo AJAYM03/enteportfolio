@@ -887,6 +887,17 @@
     opacity:0.9;
     transform:translateX(0) rotate(-4deg);
   }
+  /* right-column cards: flip annotation to the right so it doesn't overlap the left card */
+  .entries .entry:nth-child(even)::after{
+    left:auto;
+    right:-92px;
+    text-align:left;
+    transform:translateX(-6px) rotate(4deg);
+  }
+  .entries .entry:nth-child(even):hover::after,
+  .entries .entry:nth-child(even):focus-within::after{
+    transform:translateX(0) rotate(4deg);
+  }
   @media (max-width:720px){
     .entries{grid-template-columns:1fr; gap:34px; justify-items:center;}
     .entry{max-width:340px; width:100%;}
@@ -1238,6 +1249,16 @@
     border-radius:11px;
     padding:2px 9px;
     opacity:0.85;
+    display:inline-block;
+    transition:transform .15s ease, background .15s ease, color .15s ease, border-color .15s ease;
+    cursor:default;
+  }
+  .feed-meta .feed-topic:hover,
+  .feed-meta .feed-topic:focus-visible{
+    animation:chipWobble .45s ease;
+    background:rgba(231,173,78,0.16);
+    color:var(--amber);
+    border-color:var(--amber);
   }
   .feed-actions{
     display:flex;
