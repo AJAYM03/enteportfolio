@@ -1,6 +1,5 @@
 Date: July 2026
 Topic: on building
-
 Title: Building Haajar
 Link: https://lnkd.in/p/gyEpjhji
 
