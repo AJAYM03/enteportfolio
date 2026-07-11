@@ -1,5 +1,5 @@
 Date: July 2026
-Topic: events & building
+Topic: on noticing things
 Title: The bottle flip was not what I expected to remember
 Link: https://lnkd.in/p/gHExv4RB
 

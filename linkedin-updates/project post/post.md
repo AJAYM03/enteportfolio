@@ -1,5 +1,5 @@
 Date: May 2026
-Topic: research & engineering
+Topic: on building
 Title: Being the last team without a project
 Link: https://lnkd.in/p/gu6H_XTp
 

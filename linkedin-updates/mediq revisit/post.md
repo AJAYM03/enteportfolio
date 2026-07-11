@@ -1,5 +1,5 @@
 Date: June 2026
-Topic: building & learning
+Topic: on building
 Title: Revisiting MediQ
 Link: https://lnkd.in/p/gFR_hmKK
 
