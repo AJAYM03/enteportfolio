@@ -80,8 +80,7 @@ export const supportingProjects = [
 ];
 
 export const skillGroups = [
-  ['Software development', ['Python', 'JavaScript', 'C', 'Flask', 'FastAPI', 'Streamlit'], 'languages and frameworks I keep building with'],
-  ['Data & state modelling', ['Firestore', 'MySQL', 'SQLite', 'Git', 'GitHub'], 'where state, relationships, and transitions become the design'],
-  ['Cybersecurity & networking', ['Scapy', 'Chrome Extensions API', 'DNS analysis', 'packet-level inspection'], 'a foundation, not a box I need to stay inside'],
-  ['Architecture & iteration', ['system architecture', 'research / optimization', 'AI-assisted development', 'debugging', 'prototyping'], 'the part that keeps changing as the project teaches me more']
+  ['building', ['architecture', 'backend systems', 'AI-assisted development', 'FastAPI', 'Flask', 'Firestore', 'React + Vite'], 'where most of my project time goes'],
+  ['exploring', ['agentic systems', 'investigation architecture', 'research prototyping', 'optimization', 'EdgeSimPy + SUMO'], 'things I follow because the problems are interesting'],
+  ['background', ['Python', 'JavaScript', 'C', 'MySQL', 'SQLite', 'Git', 'Scapy', 'cybersecurity', 'Chrome Extensions API'], 'grounding that shows up in the work']
 ];

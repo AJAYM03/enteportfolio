@@ -11,6 +11,22 @@ const sections = [
   ['experience', 'path', 'Professional experience'],
   ['contact', 'back cover', 'Contact']
 ];
+
+const skillLinks: Record<string, string> = {
+  'Python': 'https://www.python.org/',
+  'JavaScript': 'https://developer.mozilla.org/en-US/docs/Web/JavaScript',
+  'C': 'https://en.cppreference.com/w/c',
+  'Flask': 'https://flask.palletsprojects.com/',
+  'FastAPI': 'https://fastapi.tiangolo.com/',
+  'Firestore': 'https://firebase.google.com/docs/firestore',
+  'MySQL': 'https://www.mysql.com/',
+  'SQLite': 'https://www.sqlite.org/',
+  'Git': 'https://git-scm.com/',
+  'Scapy': 'https://scapy.net/',
+  'Chrome Extensions API': 'https://developer.chrome.com/docs/extensions/',
+  'React + Vite': 'https://vitejs.dev/',
+  'EdgeSimPy + SUMO': 'https://github.com/EdgeSimPy/EdgeSimPy',
+};
 ---
 
 <BaseLayout>
@@ -55,12 +71,17 @@ const sections = [
     <section class="hero" id="top">
       <div class="hero-grid">
         <div class="hero-copy">
-          <span class="hand">ajay mukund a <span class="hero-dash">—</span></span>
-          <h1><span class="who">engineer’s notebook</span></h1>
-          <p class="lede">I build things I’m curious about.</p>
-          <p class="lede"><span class="mark">Sometimes because they shouldn’t be this painful.</span></p>
-          <span class="hero-current"><strong>software · systems · architecture · AI-assisted building</strong><br />currently Associate Engineer – Trainee @ Litmus7</span>
-          <span class="annotation">open the workbench ↓</span>
+          <span class="hand">ajay mukund —</span>
+          <h1><span class="who">engineer's notebook</span></h1>
+          <p class="lede">I build things I'm curious about.</p>
+          <p class="lede"><span class="mark">Mostly software. Sometimes a system. Occasionally things that shouldn't be as complicated as they are.</span></p>
+          <span class="hero-current"><strong>software · systems · architecture · AI-assisted building</strong><br />Associate Engineer – Trainee @ Litmus7</span>
+          <div class="now-instrument" aria-label="Local time in Thiruvananthapuram">
+            <span class="now-label">local time</span>
+            <span class="now-time" id="now-time">--:--:--</span>
+            <span class="now-divider" aria-hidden="true"></span>
+            <span class="now-meta">IST · Thiruvananthapuram</span>
+          </div>
           <div class="hero-actions">
             <a class="btn" data-cursor="OPEN" href="#built">open projects ↓</a>
             <a class="btn ghost" data-cursor="GO ↗" href="https://www.linkedin.com/in/ajay-mukund03/" target="_blank" rel="noopener">find me on linkedin ↗</a>
@@ -73,30 +94,30 @@ const sections = [
           </div>
         </div>
       </div>
-      <span class="hero-prompt" aria-hidden="true">move through the system →</span>
+      <a href="https://github.com/ajaym03/enteportfolio" target="_blank" rel="noopener" class="hero-prompt" data-cursor="GO ↗" aria-label="View source code on GitHub">
+        <span class="prompt-mask">
+          <span class="prompt-text">inspect the system ↗</span>
+          <span class="prompt-hover">view source code ↗</span>
+        </span>
+      </a>
     </section>
 
     <section id="think">
       <span class="eyebrow"><span class="eyebrow-num">01</span><span class="eyebrow-label">how i build</span></span>
-      <h2 class="section-title reveal">I work across domains. The common thread is building.</h2>
+      <h2 class="section-title reveal">I follow problems. The domain is wherever the problem lives.</h2>
       <div class="think-body">
-        <p>I build whatever the problem, the idea, or the next thing I need to learn asks for. That has taken me through security tools, queue systems, scheduling research, and agentic investigation architecture.</p>
-        <div class="quote-block">The loop is simple: <span class="ink-underline">problem → understand → design → build → iterate</span>.</div>
-        <div class="friction-log reveal">
-          <ul>
-            <li><b>principle 01</b><span>I chase problems, not domains.</span></li>
-            <li><b>principle 02</b><span>Architecture before code — at least when the system is asking for it.</span></li>
-            <li><b>principle 03</b><span>AI is a tool, not the driver. I still make the engineering decisions.</span></li>
-            <li><b>principle 04</b><span>Build. Break. Learn. Repeat.</span></li>
-          </ul>
-        </div>
+        <p>I tend to start with the thing that interests me, then figure out what needs to exist for it to work. That's taken me through security tooling, queue state machines, scheduling research, and an investigation OS. I don't plan for those areas — each one started with something I couldn't stop thinking about.</p>
+        <p>I use whatever makes sense. Sometimes that's code. Sometimes it's architecture first. Sometimes it means spending a week understanding a paper before writing a line. The tool choice is usually downstream of the problem.</p>
+        <div class="quote-block">The loop: <span class="ink-underline">problem → understand → design → build → iterate</span>. Then the problem shifts slightly, and you start again.</div>
+        <span class="margin-note">this is actually how it goes</span>
       </div>
     </section>
 
     <section id="built">
       <span class="eyebrow"><span class="eyebrow-num">02</span><span class="eyebrow-label">selected work</span></span>
-      <h2 class="section-title reveal">Projects where the architecture matters as much as the feature.</h2>
-      <p class="section-intro">A few prototypes and research projects built by following a problem far enough to understand the system underneath it.</p>
+      <h2 class="section-title reveal">Things I built far enough to understand the system underneath.</h2>
+      <p class="section-intro">A few prototypes and a research paper. Some of these are finished. Some are still being figured out — I've tried to be honest about which is which.</p>
+      <span class="margin-note">honest caveat: these are prototypes, not production systems</span>
       <div class="entries">
         {projects.map((project, index) => <ProjectCard project={project} featured={index === 0} />)}
       </div>
@@ -114,19 +135,23 @@ const sections = [
       <span class="meta-tag">field log</span>
       <h2 class="section-title reveal">Where I’m building now, and where I started.</h2>
       <div class="experience-timeline" aria-label="Professional experience timeline">
+        <svg class="timeline-curve" aria-hidden="true">
+          <path class="timeline-path-bg" />
+          <path class="timeline-path" />
+        </svg>
         <article class="experience-event reveal is-current">
           <div class="event-date"><strong>2026</strong><span>Aug 10 → present</span></div>
-          <div class="event-marker" aria-hidden="true"><i></i></div>
+          <div class="event-marker" aria-hidden="true"><div class="event-logo">L</div></div>
           <div class="event-card">
             <span class="event-label">currently building</span>
             <h3>Associate Engineer – Trainee</h3>
             <p class="event-company">Litmus7</p>
-            <p>Just getting started — learning, building, and contributing.</p>
+            <p>Ten days in. Still figuring out the codebase, the team, and what I don't know yet. Interested to see what the next few months look like.</p>
           </div>
         </article>
         <article class="experience-event reveal">
           <div class="event-date"><strong>2025</strong><span>June · 1 month</span></div>
-          <div class="event-marker" aria-hidden="true"><i></i></div>
+          <div class="event-marker" aria-hidden="true"><div class="event-logo">C</div></div>
           <div class="event-card">
             <span class="event-label">internship</span>
             <h3>Project Intern · Cochin International Airport Limited (CIAL)</h3>
@@ -135,7 +160,7 @@ const sections = [
         </article>
         <article class="experience-event reveal">
           <div class="event-date"><strong>2024</strong><span>July · 1 month</span></div>
-          <div class="event-marker" aria-hidden="true"><i></i></div>
+          <div class="event-marker" aria-hidden="true"><div class="event-logo">B</div></div>
           <div class="event-card">
             <span class="event-label">internship</span>
             <h3>Bornbix Technologies</h3>
@@ -147,26 +172,46 @@ const sections = [
 
     <section id="skills">
       <span class="eyebrow"><span class="eyebrow-label">tools / focus</span></span>
-      <h2 class="section-title reveal">The capabilities behind the projects.</h2>
-      <p class="section-intro">A capability-oriented index, without pretending a tool list is the same thing as mastery.</p>
+      <h2 class="section-title reveal">What I actually use. What I'm comfortable in.</h2>
+      <p class="section-intro">Organised around how I actually spend time — not pretending the whole stack is equally important.</p>
       <div class="skill-grid">
-        {typedSkillGroups.map(([title, skills, note]) => <div class="skill-card reveal" tabindex="0"><h3>{title}</h3><ul class="skill-list">{skills.map((skill: string) => <li>{skill}</li>)}</ul><p class="skill-note">{note}</p></div>)}
+        {typedSkillGroups.map(([title, skills, note]) => (
+          <div class="skill-card reveal" tabindex="0">
+            <h3>{title}</h3>
+            <ul class="skill-list">
+              {skills.map((skill: string) => {
+                const url = skillLinks[skill];
+                return (
+                  <li>
+                    {url ? (
+                      <a href={url} target="_blank" rel="noopener" data-cursor="GO ↗" class="skill-interactive">{skill}</a>
+                    ) : (
+                      <span class="skill-static">{skill}</span>
+                    )}
+                  </li>
+                );
+              })}
+            </ul>
+            <p class="skill-note">{note}</p>
+          </div>
+        ))}
       </div>
     </section>
 
     <section id="education">
       <span class="eyebrow"><span class="eyebrow-label">education &amp; certifications</span></span>
-      <h2 class="section-title reveal">The foundation underneath the work.</h2>
-      <ul class="timeline education-timeline"><li class="reveal"><div class="when">2022 — 2026</div><div class="what"><h3>Rajagiri School of Engineering &amp; Technology, Kochi</h3><p>B.Tech, Computer Science Engineering (Honours in Cybersecurity) · CGPA 8.62</p></div></li></ul>
+      <h2 class="section-title reveal">Where I studied. What I kept.</h2>
+      <ul class="timeline education-timeline"><li class="reveal"><div class="when">2022 — 2026</div><div class="what"><h3>Rajagiri School of Engineering &amp; Technology, Kochi</h3><p>B.Tech, Computer Science Engineering (Honours in Cybersecurity) · CGPA 8.62 · The cybersecurity specialisation is where a lot of the networking and systems thinking started.</p></div></li></ul>
       <div class="certifications reveal"><span class="meta-tag">certifications</span><ul class="cert-list"><li>NPTEL — Cryptography and Network Security</li><li>Google — Foundations of Cybersecurity</li><li>NPTEL — Data Science for Engineers</li></ul></div>
     </section>
 
     <section id="contact">
       <span class="eyebrow"><span class="eyebrow-num">04</span><span class="eyebrow-label">back cover / contact</span></span>
       <div class="contact-block reveal">
-        <span class="hand">let’s talk about the problem</span>
-        <h2 class="section-title reveal">Interested in projects where the system is still being figured out.</h2>
-        <p class="section-intro">Ideas, architecture, prototypes, engineering trade-offs, and the occasional thing that is unnecessarily painful.</p>
+        <span class="hand">if something caught your eye —</span>
+        <h2 class="section-title reveal">I'm most interested in problems where the system is still being figured out.</h2>
+        <p class="section-intro">If you have something interesting — an architecture question, a weird problem, a project that keeps not quite working — I'm usually up for talking about it. Also open to roles, collaborations, or just a good conversation.</p>
+        <span class="margin-note">i check my email daily, usually</span>
         <div class="contact-links">
           <a class="contact-object" data-cursor="OPEN PDF" href="https://drive.google.com/file/d/1bZt3D_m_eWqoRWMSEHVJcLuTd_eiIDLt/view?usp=sharing" target="_blank" rel="noopener">
             <div class="contact-kicker-row"><svg class="contact-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M6 3.5h8l4 4V20.5H6zM14 3.5v4h4M9 12h6M9 15h6" /></svg><span class="contact-kicker">resume</span></div>
@@ -177,11 +222,11 @@ const sections = [
             <strong>AJAYM03</strong><span>github.com/AJAYM03</span><b>↗</b>
           </a>
           <a class="contact-object" data-cursor="GO ↗" href="https://www.linkedin.com/in/ajay-mukund03/" target="_blank" rel="noopener">
-            <div class="contact-kicker-row"><svg class="contact-icon contact-icon--filled" viewBox="0 0 24 24" aria-hidden="true"><rect x="4" y="4" width="16" height="16" rx="2" /><path d="M8 10v6M8 8.2v.1M11.5 16v-3.2a2 2 0 0 1 4 0V16M11.5 10v6" /></svg><span class="contact-kicker">linkedin</span></div>
+            <div class="contact-kicker-row"><svg class="contact-icon contact-brand" viewBox="0 0 24 24" aria-hidden="true"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg><span class="contact-kicker">linkedin</span></div>
             <strong>/ajay-mukund03</strong><span>professional profile</span><b>↗</b>
           </a>
           <a class="contact-object" data-cursor="GO ↗" href="https://medium.com/@ajayma9" target="_blank" rel="noopener">
-            <div class="contact-kicker-row"><svg class="contact-icon contact-icon--filled" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="8.5" /><path d="m7.5 8.5 3.5 2.4 3.5-2.4M7.5 8.5v7M14.5 8.5v7M11 10.9v5.2M14.5 8.5l2 1.4v5.8" /></svg><span class="contact-kicker">medium</span></div>
+            <div class="contact-kicker-row"><svg class="contact-icon contact-brand" viewBox="0 0 24 24" aria-hidden="true"><path d="M13.54 12a6.8 6.8 0 01-6.77 6.82A6.8 6.8 0 010 12a6.8 6.8 0 016.77-6.82A6.8 6.8 0 0113.54 12zM20.96 12c0 3.54-1.51 6.42-3.38 6.42-1.87 0-3.39-2.88-3.39-6.42s1.52-6.42 3.39-6.42 3.38 2.88 3.38 6.42M24 12c0 3.17-.53 5.75-1.19 5.75-.66 0-1.19-2.58-1.19-5.75s.53-5.75 1.19-5.75C23.47 6.25 24 8.83 24 12z"/></svg><span class="contact-kicker">medium</span></div>
             <strong>@ajayma9</strong><span>2 published blogs</span><b>↗</b>
           </a>
           <a class="contact-object" data-cursor="WRITE" href="mailto:ajayma9@gmail.com">
@@ -194,6 +239,6 @@ const sections = [
   </main>
 
   <footer class="wrap">
-    <span>Ajay Mukund A · Kerala, India</span><span class="footer-note">problem → understand → design → build → iterate.</span>
+    <span>Ajay Mukund A · Kerala, India</span><span class="footer-note">problem → understand → design → build → iterate.</span><span class="footer-build">built with Astro · still tinkering</span>
   </footer>
 </BaseLayout>

@@ -79,11 +79,68 @@ const updateScrollState = () => {
   });
 };
 
+const drawTimelineCurve = () => {
+  const timeline = document.querySelector('.experience-timeline');
+  const curveSvg = timeline?.querySelector('.timeline-curve');
+  if (!timeline || !curveSvg) return;
+
+  const markers = [...timeline.querySelectorAll('.event-logo')];
+  if (markers.length === 0) return;
+
+  const timelineRect = timeline.getBoundingClientRect();
+  
+  const points = markers.map(marker => {
+    const rect = marker.getBoundingClientRect();
+    return {
+      x: rect.left - timelineRect.left + rect.width / 2,
+      y: rect.top - timelineRect.top + rect.height / 2
+    };
+  });
+
+  const allPoints = [
+    { x: points[0].x, y: 0 },
+    ...points,
+    { x: points[points.length - 1].x, y: timelineRect.height }
+  ];
+
+  const A = 35;
+  let d = `M ${allPoints[0].x} ${allPoints[0].y}`;
+
+  for (let i = 1; i < allPoints.length; i++) {
+    const prev = allPoints[i - 1];
+    const curr = allPoints[i];
+    const H = curr.y - prev.y;
+    const waveOffset = (i % 2 === 1) ? A : -A;
+    
+    const cp1x = prev.x + waveOffset;
+    const cp1y = prev.y + H / 3;
+    
+    const cp2x = curr.x + waveOffset;
+    const cp2y = curr.y - H / 3;
+    
+    d += ` C ${cp1x} ${cp1y}, ${cp2x} ${cp2y}, ${curr.x} ${curr.y}`;
+  }
+
+  const pathBg = curveSvg.querySelector('.timeline-path-bg');
+  const pathFg = curveSvg.querySelector('.timeline-path');
+  
+  if (pathBg) pathBg.setAttribute('d', d);
+  if (pathFg) {
+    pathFg.setAttribute('d', d);
+    const length = pathFg.getTotalLength();
+    timeline.style.setProperty('--path-length', length);
+  }
+};
+
 const requestScrollUpdate = () => {
   if (!scrollFrame) scrollFrame = window.requestAnimationFrame(updateScrollState);
 };
 window.addEventListener('scroll', requestScrollUpdate, { passive: true });
-window.addEventListener('resize', requestScrollUpdate, { passive: true });
+window.addEventListener('resize', () => {
+  drawTimelineCurve();
+  requestScrollUpdate();
+}, { passive: true });
+drawTimelineCurve();
 updateScrollState();
 
 const cursorLabel = document.querySelector('.cursor-label');
@@ -156,7 +213,7 @@ if (photo && finePointer && !reduceMotion) {
     const y = (event.clientY - rect.top) / rect.height - .5;
     photo.style.transform = `rotate(1deg) perspective(500px) rotateX(${y * -3}deg) rotateY(${x * 4}deg)`;
   }, { passive: true });
-  photo.addEventListener('pointerleave', () => { photo.style.transform = 'rotate(1deg)'; });
+  photo.addEventListener('pointerleave', () => { photo.style.transform = ''; });
 }
 
 const currentRole = document.querySelector('.experience-event.is-current .event-card');
@@ -218,3 +275,26 @@ if (canvas && finePointer && !reduceMotion && canvas.getContext) {
   window.addEventListener('resize', resizeCanvas, { passive: true });
   resizeCanvas();
 }
+
+const initNowClock = () => {
+  const timeEl = document.getElementById('now-time');
+  const dayEl = document.getElementById('now-day');
+  if (!timeEl && !dayEl) return;
+
+  const tick = () => {
+    const now = new Date();
+    if (timeEl) {
+      const hh = String(now.getHours()).padStart(2, '0');
+      const mm = String(now.getMinutes()).padStart(2, '0');
+      const ss = String(now.getSeconds()).padStart(2, '0');
+      timeEl.textContent = `${hh}:${mm}:${ss}`;
+    }
+  };
+
+  tick();
+  // Only animate if motion is allowed; otherwise show static time
+  if (!reduceMotion) setInterval(tick, 1000);
+};
+
+initNowClock();
+
