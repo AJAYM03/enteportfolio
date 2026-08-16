@@ -3,6 +3,8 @@ import '../styles/global.css';
 
 const title = 'AJAY. / Ajay Mukund A';
 const description = 'Ajay Mukund A is a builder working across software, systems, cybersecurity, and agentic tools — learning by understanding problems, designing systems, building prototypes, and iterating.';
+const canonicalURL = new URL(Astro.url.pathname, Astro.site || 'https://ajaymukund.pages.dev');
+const socialImageURL = new URL('/ajay-photo-warm.jpg', Astro.site || 'https://ajaymukund.pages.dev');
 ---
 
 <!doctype html>
@@ -29,11 +31,16 @@ const description = 'Ajay Mukund A is a builder working across software, systems
       html.js.is-ready .site { visibility: visible; }
     </style>
     <meta property="og:type" content="website" />
+    <meta property="og:url" content={canonicalURL} />
     <meta property="og:title" content={title} />
     <meta property="og:description" content={description} />
-    <meta name="twitter:card" content="summary" />
+    <meta property="og:image" content={socialImageURL} />
+    
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta property="twitter:url" content={canonicalURL} />
     <meta name="twitter:title" content={title} />
     <meta name="twitter:description" content={description} />
+    <meta name="twitter:image" content={socialImageURL} />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="anonymous" />
     <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@500;600;700&family=Space+Grotesk:wght@400;500;600;700&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet" />
