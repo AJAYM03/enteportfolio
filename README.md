@@ -10,7 +10,7 @@ This README is about **how this portfolio was built**, why it changed, what didn
 
 This portfolio started as a personal, student-oriented website. It was built as a static site and heavily leaned into a "field notes" aesthetic. It reflected how I was thinking at the time: college, cybersecurity, experiments, and small ideas.
 
-But as my work changed, the site stopped fitting. I graduated. I joined Litmus7 as an Associate Engineer – Trainee. My focus shifted increasingly toward **architecture, systems, AI-assisted development, and research**. 
+But as my work changed, the site stopped fitting. I graduated. My focus shifted increasingly toward **architecture, systems, AI-assisted development, and research**. 
 
 I didn't want to just update the text. The redesign wasn't just "make it prettier" — it was about making the site represent how I actually build and think now. The portfolio itself became a small engineering and design experiment.
 
@@ -43,11 +43,9 @@ Interaction is optional. The website should never make the visitor work to under
 ## 5. Projects as Visual Systems
 
 Traditional project cards tell visitors *what* was built. 
-The artifacts here try to give a small visual indication of *how* the system works:
-- **AnweshanaSahayi** → Agentic investigation architecture prototype
-- **MediQ** → Real-time hospital OP queue system
-- **SHybridQIGA** → Vehicular fog scheduling research
-- **DNSCheck** → DNS spoofing detection prototype
+The artifacts here try to give a small visual indication of *how* the system works.
+
+Rather than standard thumbnails, the projects use custom visual pieces—like a representation of a reasoning boundary, a queue state, or an optimization path. These aren't full architectural deep-dives, just small glimpses into the logic behind the work.
 
 ## 6. Technical Decisions
 
