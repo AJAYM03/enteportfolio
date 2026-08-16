@@ -1,0 +1,90 @@
+---
+const { type: artifactType } = Astro.props;
+const detail = 'Hover or focus a stage to inspect its boundary.';
+---
+
+{artifactType === 'architecture' && (
+  <div class="artifact artifact-architecture" data-artifact="architecture" aria-label="AnweshanaSahayi architecture flow">
+    <span class="artifact-label">architecture sketch · the investigation loop</span>
+    <div class="artifact-flow vertical">
+      <button class="artifact-node artifact-interactive" type="button" data-cursor="INSPECT" data-detail="Fragmented digital evidence enters the investigation workflow here.">raw evidence</button>
+      <span class="artifact-arrow">↓</span>
+      <button class="artifact-node emphasis artifact-interactive" type="button" data-cursor="INSPECT" data-detail="Zero LLM calls. Entity extraction, relationships, provenance, coverage and state construction happen here.">deterministic backbone<br />zero LLM calls</button>
+      <span class="artifact-arrow">↓</span>
+      <button class="artifact-node artifact-interactive" type="button" data-cursor="INSPECT" data-detail="Structured investigation state is shared across the workflow instead of passing raw evidence between steps.">investigation state</button>
+      <span class="artifact-arrow">↓</span>
+      <button class="artifact-node artifact-interactive" type="button" data-cursor="INSPECT" data-detail="A contextual view organizes the relevant state for the current investigation question.">context / view</button>
+      <span class="artifact-arrow">↓</span>
+      <button class="artifact-node artifact-interactive" type="button" data-cursor="INSPECT" data-detail="The graph is a deterministic projection of investigation state, not the source of truth.">graph projection</button>
+      <span class="artifact-arrow">↓</span>
+      <button class="artifact-node artifact-interactive" type="button" data-cursor="INSPECT" data-detail="Coverage shows which parts of the investigation still need attention.">coverage</button>
+      <span class="artifact-arrow">↓</span>
+      <button class="artifact-node emphasis artifact-interactive" type="button" data-cursor="INSPECT" data-detail="Reasons over structured investigation state rather than raw evidence.">reasoning agent</button>
+      <span class="artifact-arrow">↓</span>
+      <button class="artifact-node artifact-interactive" type="button" data-cursor="INSPECT" data-detail="Human remains the final decision-maker.">investigator</button>
+    </div>
+    <p class="artifact-explain" aria-live="polite">{detail}</p>
+  </div>
+)}
+
+{artifactType === 'queue' && (
+  <div class="artifact artifact-queue" aria-label="MediQ queue state diagram">
+    <span class="artifact-label">state sketch · a queue is a state machine pretending to be a UI</span>
+    <div class="artifact-grid">
+      <button class="artifact-column artifact-interactive" type="button" data-cursor="INSPECT" data-detail="Holding Pool contains appointments and walk-ins that are not physically present in the active queue.">
+        <strong>holding pool</strong><span>appointment / walk-in</span><span>not physically present</span><span class="queue-tokens" aria-hidden="true"><i></i><i></i><i></i></span>
+      </button>
+      <button class="artifact-column artifact-interactive" type="button" data-cursor="INSPECT" data-detail="Active Pool contains patients who are physically present, with consultation and ETA state moving live.">
+        <strong>active pool</strong><span>present in the queue</span><span>consultation / ETA state</span><span class="queue-tokens active" aria-hidden="true"><i></i><i></i></span>
+      </button>
+    </div>
+    <div class="queue-track" aria-label="Queue states">
+      <button class="queue-state artifact-interactive" type="button" data-cursor="INSPECT" data-detail="Appointment or walk-in exists, but physical presence has not been verified.">holding</button><span class="artifact-arrow">→</span>
+      <button class="queue-state artifact-interactive" type="button" data-cursor="INSPECT" data-detail="The patient is physically present and can move into the active queue.">arrived</button><span class="artifact-arrow">→</span>
+      <button class="queue-state emphasis artifact-interactive" type="button" data-cursor="INSPECT" data-detail="Present in the queue; consultation and ETA state are live.">active</button><span class="artifact-arrow">→</span>
+      <button class="queue-state artifact-interactive" type="button" data-cursor="INSPECT" data-detail="Staff has called the next patient.">called</button><span class="artifact-arrow">→</span>
+      <button class="queue-state artifact-interactive" type="button" data-cursor="INSPECT" data-detail="Consultation is in progress.">consulting</button><span class="artifact-arrow">→</span>
+      <button class="queue-state artifact-interactive" type="button" data-cursor="INSPECT" data-detail="The queue item has finished its clinic workflow.">completed</button>
+    </div>
+    <p class="artifact-explain" aria-live="polite">Hover or focus a pool or state to inspect the queue model.</p>
+  </div>
+)}
+
+{artifactType === 'optimization' && (
+  <div class="artifact artifact-optimization" aria-label="Conceptual SHybridQIGA optimization sketch">
+    <span class="artifact-label">research sketch · scheduling under movement</span>
+    <div class="optimization-layout">
+      <svg class="optimization-plot" viewBox="0 0 300 170" role="img" aria-label="Illustrative scatter plot showing a latency and energy trade-off without numerical values">
+        <path class="plot-axis" d="M28 14V145H282" />
+        <text class="plot-label" x="5" y="18">latency</text><text class="plot-label" x="246" y="164">energy</text>
+        <path class="pareto-line" d="M53 42 C83 67 111 92 145 111 S209 132 263 137" />
+        <circle class="metric-point pareto artifact-interactive" tabindex="0" role="button" aria-label="Illustrative Pareto-front point" data-cursor="INSPECT" data-detail="Illustrative Pareto-front marker. No numerical experiment value is encoded here." cx="53" cy="42" r="4" />
+        <circle class="metric-point pareto artifact-interactive" tabindex="0" role="button" aria-label="Illustrative Pareto-front point" data-cursor="INSPECT" data-detail="Illustrative Pareto-front marker showing one trade-off position, not a reported measurement." cx="83" cy="67" r="4" />
+        <circle class="metric-point pareto artifact-interactive" tabindex="0" role="button" aria-label="Illustrative Pareto-front point" data-cursor="INSPECT" data-detail="Illustrative Pareto-front marker. The plot communicates trade-offs, not exact results." cx="111" cy="92" r="4" />
+        <circle class="metric-point pareto artifact-interactive" tabindex="0" role="button" aria-label="Illustrative Pareto-front point" data-cursor="INSPECT" data-detail="Illustrative Pareto-front marker at another latency and energy trade-off." cx="145" cy="111" r="4" />
+        <circle class="metric-point pareto artifact-interactive" tabindex="0" role="button" aria-label="Illustrative Pareto-front point" data-cursor="INSPECT" data-detail="Illustrative Pareto-front marker; no numerical experiment value is implied." cx="188" cy="125" r="4" />
+        <circle class="metric-point pareto artifact-interactive" tabindex="0" role="button" aria-label="Illustrative Pareto-front point" data-cursor="INSPECT" data-detail="Illustrative Pareto-front marker near the energy end of the trade-off." cx="231" cy="133" r="4" />
+        <circle class="metric-point pareto artifact-interactive" tabindex="0" role="button" aria-label="Illustrative Pareto-front point" data-cursor="INSPECT" data-detail="Illustrative Pareto-front marker at the far end of the conceptual trade-off." cx="263" cy="137" r="4" />
+        <circle class="metric-point artifact-interactive" tabindex="0" role="button" aria-label="Illustrative candidate point" data-cursor="INSPECT" data-detail="Illustrative candidate point away from the Pareto front; no numerical experiment value is implied." cx="72" cy="108" r="3" />
+        <circle class="metric-point artifact-interactive" tabindex="0" role="button" aria-label="Illustrative candidate point" data-cursor="INSPECT" data-detail="Illustrative candidate point in the search space, not a reported measurement." cx="128" cy="54" r="3" />
+        <circle class="metric-point artifact-interactive" tabindex="0" role="button" aria-label="Illustrative candidate point" data-cursor="INSPECT" data-detail="Illustrative candidate point showing that the search space contains alternatives." cx="176" cy="79" r="3" />
+        <circle class="metric-point artifact-interactive" tabindex="0" role="button" aria-label="Illustrative candidate point" data-cursor="INSPECT" data-detail="Illustrative candidate point used only to make the optimization surface legible." cx="219" cy="106" r="3" />
+      </svg>
+      <div class="optimization-notes"><span class="plot-legend"><i class="legend-dot pareto"></i> Pareto front</span><span class="plot-legend"><i class="legend-dot"></i> candidate space</span><p>Illustrative only — no numerical values or experiment claims.</p></div>
+    </div>
+    <p class="artifact-explain" aria-live="polite">Hover or focus a point to inspect the trade-off idea.</p>
+  </div>
+)}
+
+{artifactType === 'dns' && (
+  <div class="artifact artifact-dns" aria-label="Conceptual DNS spoofing detection flow">
+    <span class="artifact-label">security sketch · packet to alert</span>
+    <div class="artifact-flow vertical dns-flow">
+      <button class="artifact-node artifact-interactive" type="button" data-cursor="INSPECT" data-detail="A DNS request is observed at packet level.">DNS request</button><span class="artifact-arrow">↓</span>
+      <button class="artifact-node artifact-interactive" type="button" data-cursor="INSPECT" data-detail="The received response is inspected rather than trusted blindly.">response</button><span class="artifact-arrow">↓</span>
+      <div class="dns-compare"><button class="artifact-node artifact-interactive" type="button" data-cursor="INSPECT" data-detail="The expected IP is the answer the request should resolve to.">expected IP</button><span class="dns-vs">vs</span><button class="artifact-node artifact-interactive" type="button" data-cursor="INSPECT" data-detail="The actual IP is the answer that was received and checked for mismatch or TTL anomaly.">actual IP</button></div>
+      <span class="artifact-arrow dns-path">↓</span><button class="artifact-node emphasis artifact-interactive dns-path" type="button" data-cursor="INSPECT" data-detail="A mismatch or TTL anomaly becomes a visible detection event.">detection</button>
+    </div>
+    <p class="artifact-explain" aria-live="polite">Hover or focus a stage to inspect the trust boundary.</p><span class="dns-footnote">conceptual explanation · not a live network simulation</span>
+  </div>
+)}

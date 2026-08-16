@@ -1,0 +1,47 @@
+---
+import '../styles/global.css';
+
+const title = 'AJAY. / Ajay Mukund A';
+const description = 'Ajay Mukund A is a builder working across software, systems, cybersecurity, and agentic tools — learning by understanding problems, designing systems, building prototypes, and iterating.';
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>{title}</title>
+    <meta name="description" content={description} />
+    <meta name="theme-color" content="#F2F2EF" />
+    <link rel="icon" href="/favicon.svg" />
+    <script is:inline>
+      document.documentElement.classList.add('js');
+      if ('scrollRestoration' in history) history.scrollRestoration = 'manual';
+      const resetInitialScroll = () => {
+        if (!window.location.hash) window.scrollTo(0, 0);
+      };
+      resetInitialScroll();
+      window.addEventListener('pageshow', resetInitialScroll, { once: true });
+    </script>
+    <style is:inline>
+      html.js:not(.is-ready) .site { visibility: hidden; }
+      html.js:not(.is-ready) .boot-screen { display: grid; }
+      html.js.is-ready .site { visibility: visible; }
+    </style>
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta name="twitter:card" content="summary" />
+    <meta name="twitter:title" content={title} />
+    <meta name="twitter:description" content={description} />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="anonymous" />
+    <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@500;600;700&family=Space+Grotesk:wght@400;500;600;700&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet" />
+  </head>
+  <body>
+    <slot />
+    <script>
+      import '../scripts/interactions.js';
+    </script>
+  </body>
+</html>

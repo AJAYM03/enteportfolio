@@ -1,0 +1,59 @@
+---
+import Artifact from './Artifact.astro';
+
+interface Project {
+  number: string;
+  title: string;
+  tag: string;
+  period: string;
+  type: string;
+  observation: string;
+  description: string;
+  detail?: string;
+  chips: string[];
+  decision?: string;
+  guardrail?: string;
+  status?: string;
+  projectStatus: string;
+  repo?: string;
+  repoLabel?: string;
+}
+
+const { project, featured = false } = Astro.props as { project: Project; featured?: boolean };
+---
+
+<article class:list={['entry', 'reveal', { featured }]} id={`project-${project.number}`}>
+  <div class="entry-thumb">
+    <span class="glyph">{project.number}</span>
+    <span class="entry-tag">{project.tag}<br />{project.period}</span>
+  </div>
+  <div class="entry-main">
+    <div class="entry-copy">
+      <div class="entry-head"><h3>{project.title}</h3></div>
+      <p class="entry-observation">{project.observation}</p>
+      <p class="core">{project.description}</p>
+      {project.detail && <p class="core">{project.detail}</p>}
+      <Artifact type={project.type} />
+      <div class="stack">
+        {project.chips.map((chip) => <span class="chip">{chip}</span>)}
+      </div>
+    </div>
+    {featured ? (
+      <div class="entry-details">
+        <p class="entry-detail"><strong>architecture decision</strong>{project.decision}</p>
+        <p class="entry-detail"><strong>guardrail</strong>{project.guardrail}</p>
+        <p class="entry-detail"><strong>status</strong>{project.status}</p>
+        <span class="project-status">{project.projectStatus}</span>
+        {project.repo && <a class="repo-link" data-cursor="GO ↗" href={project.repo} target="_blank" rel="noopener">{project.repoLabel}</a>}
+      </div>
+    ) : (
+      <div class="entry-lower">
+        <p class="entry-decision"><strong>{project.type === 'dns' ? 'security boundary' : project.type === 'optimization' ? 'evaluation note' : 'architecture decision'}</strong>{project.decision}</p>
+        <div class="entry-footer">
+          <span class="project-status">{project.projectStatus}</span>
+          {project.repo && <a class="repo-link" data-cursor="GO ↗" href={project.repo} target="_blank" rel="noopener">{project.repoLabel}</a>}
+        </div>
+      </div>
+    )}
+  </div>
+</article>

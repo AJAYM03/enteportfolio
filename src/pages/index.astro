@@ -1,0 +1,199 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import ProjectCard from '../components/ProjectCard.astro';
+import { projects, supportingProjects, skillGroups } from '../data/portfolio.js';
+
+const typedSkillGroups = skillGroups as [string, string[], string][];
+
+const sections = [
+  ['think', 'about', 'About and how I build'],
+  ['built', 'work', 'Selected work'],
+  ['experience', 'path', 'Professional experience'],
+  ['contact', 'back cover', 'Contact']
+];
+---
+
+<BaseLayout>
+  <div class="boot-screen" aria-hidden="true">
+    <div class="boot-panel">
+      <span class="boot-kicker">AJAY / WORKBENCH</span>
+      <strong class="boot-mark">AJAY.</strong>
+      <span class="boot-rule"><i class="boot-pencil" aria-hidden="true"></i></span>
+      <svg class="boot-trace" viewBox="0 0 360 72" aria-hidden="true">
+        <path d="M8 43 C52 8 98 69 152 36 S265 17 352 45" />
+        <circle cx="38" cy="29" r="4" />
+        <circle cx="154" cy="36" r="4" />
+        <circle cx="307" cy="34" r="4" />
+      </svg>
+      <span class="boot-status">opening the system</span>
+    </div>
+  </div>
+  <div class="margin-rule" aria-hidden="true"></div>
+  <div class="scroll-progress" aria-hidden="true"></div>
+  <canvas class="scribble-canvas" aria-hidden="true"></canvas>
+  <span class="cursor-label" aria-hidden="true"></span>
+  <a class="back-to-top" data-cursor="TOP" href="#top" aria-label="Back to top of the page">↑</a>
+
+  <nav class="page-index" aria-label="Notebook section index">
+    {sections.map(([id, label, description]) => <a href={`#${id}`} data-label={label} aria-label={description}></a>)}
+  </nav>
+
+  <header class="site">
+    <div class="wrap">
+      <div class="brand">
+        <div class="brand-identity">
+          <a class="brand-mark" data-cursor="TOP" href="#top">AJAY.</a>
+        </div>
+        <nav aria-label="Primary navigation">
+          {sections.map(([id, label], index) => <a data-cursor="OPEN" href={`#${id}`}><span class="nav-num">0{index + 1}</span>{label}</a>)}
+        </nav>
+      </div>
+    </div>
+  </header>
+
+  <main class="wrap" id="main">
+    <section class="hero" id="top">
+      <div class="hero-grid">
+        <div class="hero-copy">
+          <span class="hand">ajay mukund a <span class="hero-dash">—</span></span>
+          <h1><span class="who">engineer’s notebook</span></h1>
+          <p class="lede">I build things I’m curious about.</p>
+          <p class="lede"><span class="mark">Sometimes because they shouldn’t be this painful.</span></p>
+          <span class="hero-current"><strong>software · systems · architecture · AI-assisted building</strong><br />currently Associate Engineer – Trainee @ Litmus7</span>
+          <span class="annotation">open the workbench ↓</span>
+          <div class="hero-actions">
+            <a class="btn" data-cursor="OPEN" href="#built">open projects ↓</a>
+            <a class="btn ghost" data-cursor="GO ↗" href="https://www.linkedin.com/in/ajay-mukund03/" target="_blank" rel="noopener">find me on linkedin ↗</a>
+          </div>
+        </div>
+        <div class="hero-photo">
+          <div class="photo-frame">
+            <div class="pic"><img src="/ajay-photo-warm.jpg" width="480" height="480" fetchpriority="high" decoding="async" alt="Ajay Mukund A smiling." /></div>
+            <p class="photo-caption">ajay, mostly debugged</p>
+          </div>
+        </div>
+      </div>
+      <span class="hero-prompt" aria-hidden="true">move through the system →</span>
+    </section>
+
+    <section id="think">
+      <span class="eyebrow"><span class="eyebrow-num">01</span><span class="eyebrow-label">how i build</span></span>
+      <h2 class="section-title reveal">I work across domains. The common thread is building.</h2>
+      <div class="think-body">
+        <p>I build whatever the problem, the idea, or the next thing I need to learn asks for. That has taken me through security tools, queue systems, scheduling research, and agentic investigation architecture.</p>
+        <div class="quote-block">The loop is simple: <span class="ink-underline">problem → understand → design → build → iterate</span>.</div>
+        <div class="friction-log reveal">
+          <ul>
+            <li><b>principle 01</b><span>I chase problems, not domains.</span></li>
+            <li><b>principle 02</b><span>Architecture before code — at least when the system is asking for it.</span></li>
+            <li><b>principle 03</b><span>AI is a tool, not the driver. I still make the engineering decisions.</span></li>
+            <li><b>principle 04</b><span>Build. Break. Learn. Repeat.</span></li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <section id="built">
+      <span class="eyebrow"><span class="eyebrow-num">02</span><span class="eyebrow-label">selected work</span></span>
+      <h2 class="section-title reveal">Projects where the architecture matters as much as the feature.</h2>
+      <p class="section-intro">A few prototypes and research projects built by following a problem far enough to understand the system underneath it.</p>
+      <div class="entries">
+        {projects.map((project, index) => <ProjectCard project={project} featured={index === 0} />)}
+      </div>
+      <div class="more-repos">
+        <span class="more-repos-label">supporting work from the shelf —</span>
+        <div class="more-repos-grid">
+          {supportingProjects.map(([name, description]) => <a class="repo-chip reveal" data-cursor="GO ↗" href={`https://github.com/AJAYM03/${name}`} target="_blank" rel="noopener"><strong>{name}</strong><span>{description}</span></a>)}
+        </div>
+        <a class="repo-link" data-cursor="GO ↗" href="https://github.com/AJAYM03" target="_blank" rel="noopener">see everything on github ↗</a>
+      </div>
+    </section>
+
+    <section id="experience">
+      <span class="eyebrow"><span class="eyebrow-num">03</span><span class="eyebrow-label">professional experience</span></span>
+      <span class="meta-tag">field log</span>
+      <h2 class="section-title reveal">Where I’m building now, and where I started.</h2>
+      <div class="experience-timeline" aria-label="Professional experience timeline">
+        <article class="experience-event reveal is-current">
+          <div class="event-date"><strong>2026</strong><span>Aug 10 → present</span></div>
+          <div class="event-marker" aria-hidden="true"><i></i></div>
+          <div class="event-card">
+            <span class="event-label">currently building</span>
+            <h3>Associate Engineer – Trainee</h3>
+            <p class="event-company">Litmus7</p>
+            <p>Just getting started — learning, building, and contributing.</p>
+          </div>
+        </article>
+        <article class="experience-event reveal">
+          <div class="event-date"><strong>2025</strong><span>June · 1 month</span></div>
+          <div class="event-marker" aria-hidden="true"><i></i></div>
+          <div class="event-card">
+            <span class="event-label">internship</span>
+            <h3>Project Intern · Cochin International Airport Limited (CIAL)</h3>
+            <p>Worked with the enterprise security team on a simulated DNS-spoofing detection project. Got pulled deep into DNS internals, packet-level networking, and defensive tooling — the “DNS Spoofing Detection” project up above came out of this.</p>
+          </div>
+        </article>
+        <article class="experience-event reveal">
+          <div class="event-date"><strong>2024</strong><span>July · 1 month</span></div>
+          <div class="event-marker" aria-hidden="true"><i></i></div>
+          <div class="event-card">
+            <span class="event-label">internship</span>
+            <h3>Bornbix Technologies</h3>
+            <p>Data annotation and website work — one of my first hands-on stretches, and where I learned that the small details usually decide how something actually feels to use.</p>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <section id="skills">
+      <span class="eyebrow"><span class="eyebrow-label">tools / focus</span></span>
+      <h2 class="section-title reveal">The capabilities behind the projects.</h2>
+      <p class="section-intro">A capability-oriented index, without pretending a tool list is the same thing as mastery.</p>
+      <div class="skill-grid">
+        {typedSkillGroups.map(([title, skills, note]) => <div class="skill-card reveal" tabindex="0"><h3>{title}</h3><ul class="skill-list">{skills.map((skill: string) => <li>{skill}</li>)}</ul><p class="skill-note">{note}</p></div>)}
+      </div>
+    </section>
+
+    <section id="education">
+      <span class="eyebrow"><span class="eyebrow-label">education &amp; certifications</span></span>
+      <h2 class="section-title reveal">The foundation underneath the work.</h2>
+      <ul class="timeline education-timeline"><li class="reveal"><div class="when">2022 — 2026</div><div class="what"><h3>Rajagiri School of Engineering &amp; Technology, Kochi</h3><p>B.Tech, Computer Science Engineering (Honours in Cybersecurity) · CGPA 8.62</p></div></li></ul>
+      <div class="certifications reveal"><span class="meta-tag">certifications</span><ul class="cert-list"><li>NPTEL — Cryptography and Network Security</li><li>Google — Foundations of Cybersecurity</li><li>NPTEL — Data Science for Engineers</li></ul></div>
+    </section>
+
+    <section id="contact">
+      <span class="eyebrow"><span class="eyebrow-num">04</span><span class="eyebrow-label">back cover / contact</span></span>
+      <div class="contact-block reveal">
+        <span class="hand">let’s talk about the problem</span>
+        <h2 class="section-title reveal">Interested in projects where the system is still being figured out.</h2>
+        <p class="section-intro">Ideas, architecture, prototypes, engineering trade-offs, and the occasional thing that is unnecessarily painful.</p>
+        <div class="contact-links">
+          <a class="contact-object" data-cursor="OPEN PDF" href="https://drive.google.com/file/d/1bZt3D_m_eWqoRWMSEHVJcLuTd_eiIDLt/view?usp=sharing" target="_blank" rel="noopener">
+            <div class="contact-kicker-row"><svg class="contact-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M6 3.5h8l4 4V20.5H6zM14 3.5v4h4M9 12h6M9 15h6" /></svg><span class="contact-kicker">resume</span></div>
+            <strong>Download PDF</strong><span>professional profile</span><b>↗</b>
+          </a>
+          <a class="contact-object" data-cursor="GO ↗" href="https://github.com/ajaym03" target="_blank" rel="noopener">
+            <div class="contact-kicker-row"><svg class="contact-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M8.2 8.6 4.5 12l3.7 3.4M15.8 8.6l3.7 3.4-3.7 3.4M13.8 5.5 10.2 18.5" /></svg><span class="contact-kicker">github</span></div>
+            <strong>AJAYM03</strong><span>github.com/AJAYM03</span><b>↗</b>
+          </a>
+          <a class="contact-object" data-cursor="GO ↗" href="https://www.linkedin.com/in/ajay-mukund03/" target="_blank" rel="noopener">
+            <div class="contact-kicker-row"><svg class="contact-icon contact-icon--filled" viewBox="0 0 24 24" aria-hidden="true"><rect x="4" y="4" width="16" height="16" rx="2" /><path d="M8 10v6M8 8.2v.1M11.5 16v-3.2a2 2 0 0 1 4 0V16M11.5 10v6" /></svg><span class="contact-kicker">linkedin</span></div>
+            <strong>/ajay-mukund03</strong><span>professional profile</span><b>↗</b>
+          </a>
+          <a class="contact-object" data-cursor="GO ↗" href="https://medium.com/@ajayma9" target="_blank" rel="noopener">
+            <div class="contact-kicker-row"><svg class="contact-icon contact-icon--filled" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="8.5" /><path d="m7.5 8.5 3.5 2.4 3.5-2.4M7.5 8.5v7M14.5 8.5v7M11 10.9v5.2M14.5 8.5l2 1.4v5.8" /></svg><span class="contact-kicker">medium</span></div>
+            <strong>@ajayma9</strong><span>2 published blogs</span><b>↗</b>
+          </a>
+          <a class="contact-object" data-cursor="WRITE" href="mailto:ajayma9@gmail.com">
+            <div class="contact-kicker-row"><svg class="contact-icon" viewBox="0 0 24 24" aria-hidden="true"><rect x="3.5" y="6" width="17" height="12" rx="1" /><path d="m4.5 7 7.5 6 7.5-6" /></svg><span class="contact-kicker">email</span></div>
+            <strong>ajayma9@gmail.com</strong><span>open a conversation</span><b>↗</b>
+          </a>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="wrap">
+    <span>Ajay Mukund A · Kerala, India</span><span class="footer-note">problem → understand → design → build → iterate.</span>
+  </footer>
+</BaseLayout>
