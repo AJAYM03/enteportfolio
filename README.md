@@ -55,6 +55,12 @@ This portfolio is primarily static content with selective interactive behavior. 
 ### Why No WebGL or GSAP?
 I considered more immersive interaction because of the creative-web references. But I decided not to add WebGL or GSAP simply because they were available. The current interactions could be implemented with CSS, SVG, and lightweight JavaScript. If a future interaction genuinely requires a heavier tool, that decision can change.
 
+### Performance & Rendering
+Because this is a static site with an experimental interaction layer, performance was treated as an architectural constraint:
+- **No Layout Thrashing:** All CSS animations strictly target `transform` and `opacity` to offload rendering to the GPU.
+- **Passive Scroll Listeners:** Scroll and pointer events use `{ passive: true }` to explicitly decouple JS execution from the browser's scroll thread, preventing scroll jank on mobile.
+- **Resource Respect:** The JavaScript actively hooks into the OS-level `prefers-reduced-motion` state. If a user is on low battery mode or prefers no motion, the site automatically kills the canvas `requestAnimationFrame` loop, freezes the clock intervals, and halts CSS animations to conserve CPU.
+
 ### The Live Clock
 The live clock in the hero is a small example of the site's philosophy: the site should be mostly calm and readable, but have small details that make it feel alive. 
 
