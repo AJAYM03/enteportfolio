@@ -44,6 +44,23 @@ const socialImageURL = new URL('/ajay-photo-warm.jpg', Astro.site || 'https://aj
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="anonymous" />
     <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@500;600;700&family=Space+Grotesk:wght@400;500;600;700&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet" />
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "Person",
+        "name": "Ajay Mukund A",
+        "url": "https://ajaymukund.pages.dev/",
+        "jobTitle": "Associate Engineer",
+        "worksFor": {
+          "@type": "Organization",
+          "name": "Litmus7"
+        },
+        "sameAs": [
+          "https://www.linkedin.com/in/ajay-mukund03/",
+          "https://github.com/AJAYM03"
+        ]
+      }
+    </script>
   </head>
   <body>
     <slot />

@@ -90,9 +90,10 @@ section { position: relative; padding: 92px 0; border-top: 1px solid var(--borde
 .hero-grid { position: relative; z-index: 1; display: grid; grid-template-columns: minmax(0, 1fr) 260px; gap: 64px; align-items: center; }
 .hero-copy { position: relative; z-index: 1; animation: landing-rise .85s .08s cubic-bezier(.22,1,.36,1) both; }
 .hand { display: block; color: var(--teal); font: 600 2rem/1 'Caveat', cursive; transform: rotate(-1deg); }
-.hero h1 { max-width: 9ch; margin: 16px 0 22px; font: 600 clamp(3rem, 8vw, 6.3rem)/.92 'Space Grotesk', sans-serif; letter-spacing: -.065em; }
-.hero h1 .who { color: var(--ink); }
-.hero h1 .who::after { content: '.'; color: var(--coral); }
+.hero h1.hero-title { margin: 0 0 22px; font-weight: inherit; font-size: inherit; letter-spacing: inherit; }
+.hero .who-wrapper { display: block; max-width: 9ch; margin-top: 16px; font: 600 clamp(3rem, 8vw, 6.3rem)/.92 'Space Grotesk', sans-serif; letter-spacing: -.065em; }
+.hero .who-wrapper .who { color: var(--ink); }
+.hero .who-wrapper .who::after { content: '.'; color: var(--coral); }
 .lede { max-width: 49ch; margin: 0 0 6px; color: var(--muted); font-size: 1.13rem; }
 .mark { background: linear-gradient(transparent 62%, rgba(198,90,71,.18) 62% 88%, transparent 88%); }
 .hero-current { position: relative; display: block; width: max-content; max-width: 100%; margin-top: 24px; padding: 10px 30px 10px 14px; border-left: 2px solid var(--coral); color: var(--muted); font: 11px/1.55 'IBM Plex Mono', monospace; }
